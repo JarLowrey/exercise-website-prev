@@ -10,7 +10,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170613142319) do
+ActiveRecord::Schema.define(version: 20170613214307) do
+
+  create_table "activities", force: :cascade do |t|
+    t.string "name", null: false
+    t.decimal "cost", precision: 8, scale: 3, null: false
+    t.string "instructions"
+    t.datetime "start", null: false
+    t.datetime "end", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "locations", force: :cascade do |t|
+    t.string "zip"
+    t.string "street"
+    t.string "city"
+    t.string "state"
+    t.string "country"
+    t.decimal "lat", precision: 10, scale: 6, null: false
+    t.decimal "lng", precision: 10, scale: 6, null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false

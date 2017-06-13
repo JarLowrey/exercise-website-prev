@@ -1,0 +1,1 @@
+rake db:drop db:create db:environment:set RAILS_ENV=development db:migrate db:seed
