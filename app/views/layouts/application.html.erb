@@ -9,8 +9,16 @@
   </head>
 
   <body>
+    <!-- User notifications -->
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
+
+    <!-- Login/registration changing -->
+    <div class="hmenu">
+      <%= render 'devise/menu/registration_items' %>
+      <%= render 'devise/menu/login_items' %>
+    </div>
+
     <%= yield %>
   </body>
 </html>
