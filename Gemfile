@@ -5,6 +5,11 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
+#recurring events and datetime
+#gem 'simple_calendar'
+#gem 'ice_cube'
+
+#login
 gem 'devise'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'

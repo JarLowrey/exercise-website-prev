@@ -10,16 +10,78 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170613214307) do
+ActiveRecord::Schema.define(version: 20170623151857) do
 
-  create_table "activities", force: :cascade do |t|
-    t.string "name", null: false
+  create_table "attendances", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "event_id"
+    t.boolean "verified"
+    t.index ["event_id"], name: "index_attendances_on_event_id"
+    t.index ["user_id"], name: "index_attendances_on_user_id"
+  end
+
+  create_table "coaches", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "event_id"
+    t.index ["event_id"], name: "index_coaches_on_event_id"
+    t.index ["user_id"], name: "index_coaches_on_user_id"
+  end
+
+  create_table "event_organizers", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "event_id"
+    t.index ["event_id"], name: "index_event_organizers_on_event_id"
+    t.index ["user_id"], name: "index_event_organizers_on_user_id"
+  end
+
+  create_table "event_reviews", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "event_id"
+    t.integer "rating", null: false
+    t.text "comment"
+    t.index ["event_id"], name: "index_event_reviews_on_event_id"
+    t.index ["user_id"], name: "index_event_reviews_on_user_id"
+  end
+
+  create_table "events", force: :cascade do |t|
     t.decimal "cost", precision: 8, scale: 3, null: false
-    t.string "instructions"
-    t.datetime "start", null: false
-    t.datetime "end", null: false
+    t.string "name", null: false
+    t.text "description", null: false
+    t.integer "min_users"
+    t.integer "max_users"
+    t.datetime "start_time"
+    t.string "recurring"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "exercise_instances", force: :cascade do |t|
+    t.float "duration", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.float "distance"
+    t.float "#<ActiveRecord::ConnectionAdapters::SQLite3::TableDefinition:0x000000036acec8>"
+  end
+
+  create_table "exercises", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "icon_url"
+    t.boolean "verified", null: false
+  end
+
+  create_table "group_admins", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "group_id"
+    t.index ["group_id"], name: "index_group_admins_on_group_id"
+    t.index ["user_id"], name: "index_group_admins_on_user_id"
+  end
+
+  create_table "group_types", force: :cascade do |t|
+    t.string "name", null: false
+    t.boolean "verified", null: false
+  end
+
+  create_table "groups", force: :cascade do |t|
   end
 
   create_table "locations", force: :cascade do |t|
@@ -33,6 +95,11 @@ ActiveRecord::Schema.define(version: 20170613214307) do
   end
 
   create_table "users", force: :cascade do |t|
+    t.integer "age"
+    t.decimal "weight", precision: 4, scale: 1
+    t.decimal "height", precision: 4, scale: 2
+    t.string "first_name"
+    t.string "last_name"
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
