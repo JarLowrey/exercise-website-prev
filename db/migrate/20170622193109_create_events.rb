@@ -1,7 +1,7 @@
 class CreateEvents < ActiveRecord::Migration[5.1]
   def change
     create_table :events do |t|
-      t.decimal :cost, precision: 8, scale: 3, null: false
+      t.decimal :cost, precision: 8, scale: 2, null: false
       t.string  :name, null: false
       t.text  :description, null: false
 
@@ -22,13 +22,6 @@ class CreateEvents < ActiveRecord::Migration[5.1]
       t.integer :rating, null: false
       t.text :comment
 
-      t.timestamps
-    end
-
-    create_table :event_organizers do |t|
-      t.belongs_to :user
-      t.belongs_to :event
-      
       t.timestamps
     end
   end

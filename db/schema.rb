@@ -10,14 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170623151857) do
+ActiveRecord::Schema.define(version: 20170624214956) do
 
-  create_table "attendances", force: :cascade do |t|
+  create_table "attendees", force: :cascade do |t|
     t.integer "user_id"
     t.integer "event_id"
     t.boolean "verified"
-    t.index ["event_id"], name: "index_attendances_on_event_id"
-    t.index ["user_id"], name: "index_attendances_on_user_id"
+    t.index ["event_id"], name: "index_attendees_on_event_id"
+    t.index ["user_id"], name: "index_attendees_on_user_id"
   end
 
   create_table "coaches", force: :cascade do |t|
@@ -25,6 +25,13 @@ ActiveRecord::Schema.define(version: 20170623151857) do
     t.integer "event_id"
     t.index ["event_id"], name: "index_coaches_on_event_id"
     t.index ["user_id"], name: "index_coaches_on_user_id"
+  end
+
+  create_table "event_gear", force: :cascade do |t|
+    t.integer "event_id"
+    t.boolean "mandatory"
+    t.decimal "cost", precision: 8, scale: 2, null: false
+    t.index ["event_id"], name: "index_event_gear_on_event_id"
   end
 
   create_table "event_organizers", force: :cascade do |t|
@@ -39,12 +46,14 @@ ActiveRecord::Schema.define(version: 20170623151857) do
     t.integer "event_id"
     t.integer "rating", null: false
     t.text "comment"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["event_id"], name: "index_event_reviews_on_event_id"
     t.index ["user_id"], name: "index_event_reviews_on_user_id"
   end
 
   create_table "events", force: :cascade do |t|
-    t.decimal "cost", precision: 8, scale: 3, null: false
+    t.decimal "cost", precision: 8, scale: 2, null: false
     t.string "name", null: false
     t.text "description", null: false
     t.integer "min_users"
@@ -60,13 +69,18 @@ ActiveRecord::Schema.define(version: 20170623151857) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.float "distance"
-    t.float "#<ActiveRecord::ConnectionAdapters::SQLite3::TableDefinition:0x000000036acec8>"
+    t.float "#<ActiveRecord::ConnectionAdapters::SQLite3::TableDefinition:0x00000005475400>"
   end
 
   create_table "exercises", force: :cascade do |t|
     t.string "name", null: false
     t.string "icon_url"
     t.boolean "verified", null: false
+  end
+
+  create_table "gear_types", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "url"
   end
 
   create_table "group_admins", force: :cascade do |t|

@@ -11,7 +11,7 @@ class CreateGear < ActiveRecord::Migration[5.1]
       t.belongs_to :event
 
       t.boolean :mandatory
-      t.decimal :cost, precision: 8, scale: 3, null: false #null=not available at event, 0=free, >0 = cost to purchase at event
+      t.decimal :cost, precision: 8, scale: 2, null: false #null=not available at event, 0=free, >0 = cost to purchase at event
     end
   end
 
