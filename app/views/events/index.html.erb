@@ -1,0 +1,10 @@
+<% content_for :head do %>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCMh8-5D3mJSXspmJrhSTtt0ToGiA-JLBc&libraries=places"></script>
+<% end %>
+
+<p id="notice"><%= notice %></p>
+
+<div id="map"></div>
+
+
+<%= link_to 'New Event', new_event_path %>
