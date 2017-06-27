@@ -14,7 +14,8 @@ async function initialize() {
     //init autocomplete
     // let start = document.getElementById('location');
     // autcomplete = new google.maps.places.Autocomplete(start);
-    geocoder = new google.maps.Geocoder();
+
+    //init map with current location
     let zoom = 3;
     let pos = {
         'lat': 0,
@@ -24,11 +25,12 @@ async function initialize() {
         zoom = 14;
         pos = await get_current_pos();
     }
-    //init map with current location
     map = new google.maps.Map(document.getElementById('map'), {
         zoom: zoom,
         center: pos
     });
+
+    geocoder = new google.maps.Geocoder();
 }
 
 

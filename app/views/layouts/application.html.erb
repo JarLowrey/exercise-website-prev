@@ -1,11 +1,32 @@
+<% 
+#https://stackoverflow.com/a/35319530
+def asset_exist?(path)
+  if Rails.configuration.assets.compile
+    Rails.application.precompiled_assets.include? path
+  else
+    Rails.application.assets_manifest.assets[path].present?
+  end
+end
+%>
+
 <!DOCTYPE html>
 <html>
   <head>
     <title>FitTogether</title>
     <%= csrf_meta_tags %>
 
+    <!-- include styling + JS -->
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <!-- include controller-specific styling + JS -->
+    <% if asset_exist? "#{params[:controller]}.js" %>
+      <%= javascript_include_tag params[:controller]%>
+    <% end %>
+    <% if asset_exist? "#{params[:controller]}.css" %>
+      <%= stylesheet_link_tag params[:controller]%>
+    <% end %>
+
+    <!-- view specific stuff -->
     <%= yield :head %>
   </head>
 
