@@ -1,4 +1,6 @@
 <% 
+#controll-specific assets
+#http://theflyingdeveloper.com/controller-specific-assets-with-rails-4/ 
 #https://stackoverflow.com/a/35319530
 def asset_exist?(path)
   if Rails.configuration.assets.compile
@@ -15,10 +17,10 @@ end
     <title>FitTogether</title>
     <%= csrf_meta_tags %>
 
-    <!-- include styling + JS -->
+    <!-- general assets -->
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <!-- include controller-specific styling + JS -->
+    <!-- controller-specific assets -->
     <% if asset_exist? "#{params[:controller]}.js" %>
       <%= javascript_include_tag params[:controller]%>
     <% end %>
@@ -26,7 +28,7 @@ end
       <%= stylesheet_link_tag params[:controller]%>
     <% end %>
 
-    <!-- view specific stuff -->
+    <!-- view-specific stuff -->
     <%= yield :head %>
   </head>
 
