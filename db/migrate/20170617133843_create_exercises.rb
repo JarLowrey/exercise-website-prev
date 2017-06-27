@@ -1,6 +1,6 @@
 class CreateExercises < ActiveRecord::Migration[5.1]
   def change
-    create_table :exercises do |t|
+    create_table :exercise_types do |t|
       t.string :name, null: false
       t.string :icon_url
       t.boolean :verified, null: false

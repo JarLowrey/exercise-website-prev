@@ -69,10 +69,10 @@ ActiveRecord::Schema.define(version: 20170624214956) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.float "distance"
-    t.float "#<ActiveRecord::ConnectionAdapters::SQLite3::TableDefinition:0x00000005475400>"
+    t.float "#<ActiveRecord::ConnectionAdapters::SQLite3::TableDefinition:0x000000056149a0>"
   end
 
-  create_table "exercises", force: :cascade do |t|
+  create_table "exercise_types", force: :cascade do |t|
     t.string "name", null: false
     t.string "icon_url"
     t.boolean "verified", null: false
