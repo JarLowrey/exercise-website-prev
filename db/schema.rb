@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170624214956) do
+ActiveRecord::Schema.define(version: 20170630153123) do
+
+  create_table "addresses", force: :cascade do |t|
+    t.string "address"
+    t.decimal "latitude", precision: 10, scale: 6, null: false
+    t.decimal "longitude", precision: 10, scale: 6, null: false
+    t.integer "addressable_id"
+    t.string "addressable_type"
+    t.index ["latitude"], name: "index_addresses_on_latitude"
+    t.index ["longitude"], name: "index_addresses_on_longitude"
+  end
 
   create_table "attendees", force: :cascade do |t|
     t.integer "user_id"
@@ -30,7 +40,6 @@ ActiveRecord::Schema.define(version: 20170624214956) do
   create_table "event_gear", force: :cascade do |t|
     t.integer "event_id"
     t.boolean "mandatory"
-    t.decimal "cost", precision: 8, scale: 2, null: false
     t.index ["event_id"], name: "index_event_gear_on_event_id"
   end
 
@@ -53,13 +62,14 @@ ActiveRecord::Schema.define(version: 20170624214956) do
   end
 
   create_table "events", force: :cascade do |t|
-    t.decimal "cost", precision: 8, scale: 2, null: false
     t.string "name", null: false
     t.text "description", null: false
     t.integer "min_users"
     t.integer "max_users"
     t.datetime "start_time"
     t.string "recurring"
+    t.integer "price_cents", default: 0, null: false
+    t.string "price_currency", default: "USD", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -69,7 +79,7 @@ ActiveRecord::Schema.define(version: 20170624214956) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.float "distance"
-    t.float "#<ActiveRecord::ConnectionAdapters::SQLite3::TableDefinition:0x000000056149a0>"
+    t.float "#<ActiveRecord::ConnectionAdapters::SQLite3::TableDefinition:0x00000002e42648>"
   end
 
   create_table "exercise_types", force: :cascade do |t|
@@ -96,16 +106,6 @@ ActiveRecord::Schema.define(version: 20170624214956) do
   end
 
   create_table "groups", force: :cascade do |t|
-  end
-
-  create_table "locations", force: :cascade do |t|
-    t.string "zip"
-    t.string "street"
-    t.string "city"
-    t.string "state"
-    t.string "country"
-    t.decimal "lat", precision: 10, scale: 6, null: false
-    t.decimal "lng", precision: 10, scale: 6, null: false
   end
 
   create_table "users", force: :cascade do |t|

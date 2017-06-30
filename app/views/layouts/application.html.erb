@@ -1,4 +1,4 @@
-<% 
+<%
 #controll-specific assets
 #http://theflyingdeveloper.com/controller-specific-assets-with-rails-4/ 
 #https://stackoverflow.com/a/35319530
@@ -36,6 +36,8 @@ end
     <!-- User notifications -->
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
+
+    <%= params[:controller] %>
 
     <!-- Login/registration changing -->
     <div class="hmenu">

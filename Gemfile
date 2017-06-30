@@ -9,8 +9,17 @@ end
 #gem 'simple_calendar'
 #gem 'ice_cube'
 
+#location queries
+gem 'geocoder'
+
+#money conversions/saving
+gem 'money-rails'
+
 #login
 gem 'devise'
+
+#form helpers
+gem 'simple_form'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.1.1'

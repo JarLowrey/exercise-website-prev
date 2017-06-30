@@ -1,7 +1,6 @@
 class CreateEvents < ActiveRecord::Migration[5.1]
   def change
     create_table :events do |t|
-      t.decimal :cost, precision: 8, scale: 2, null: false
       t.string  :name, null: false
       t.text  :description, null: false
 
