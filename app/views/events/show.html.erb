@@ -1,4 +1,14 @@
+<!-- Google Maps Must be loaded -->
+<% content_for :head do %>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCMh8-5D3mJSXspmJrhSTtt0ToGiA-JLBc&libraries=places"></script>
+<% end %>
+
 <p id="notice"><%= notice %></p>
+
+
+<p><%= @event.address %></p>
+
+<div id="map"></div>
 
 <%= link_to 'Edit', edit_event_path(@event) %> |
 <%= link_to 'Back', events_path %>
