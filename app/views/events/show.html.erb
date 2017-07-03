@@ -5,8 +5,13 @@
 
 <p id="notice"><%= notice %></p>
 
-
-<p><%= @event.address %></p>
+<%= @event.attributes %>
+<br/>
+<br/>
+<%= Event.reflect_on_all_associations.map{|x| x.class_name}.compact%>
+<br/>
+<br/>
+<p>address - <%= @event.address.attributes %></p>
 
 <div id="map"></div>
 

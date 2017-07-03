@@ -15,7 +15,11 @@ class EventsController < ApplicationController
   # GET /events/new
   def new
     @event = Event.new
-    @event.build_address
+    @address = @event.build_address
+    #newish = Address.new(addressable: @event)
+    #build = @event.build_address
+    #creat = @event.create_address
+    #@event.address =  @addressable.User.new
   end
 
   # GET /events/1/edit
@@ -26,7 +30,6 @@ class EventsController < ApplicationController
   # POST /events.json
   def create
     @event = Event.new(event_params)
-
     respond_to do |format|
       if @event.save
         format.html { redirect_to @event, notice: 'Event was successfully created.' }
