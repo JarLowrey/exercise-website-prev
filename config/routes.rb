@@ -2,6 +2,10 @@
 Rails.application.routes.draw do
   resources :events
   get "/events/:id/*other" => "events#show" #if any txt is trailing id, also send this route to events#show
+  
+  #alias the "events" routes
+  resources :e, controller: 'events'
+  get "/e/:id/*other" => "events#show" #if any txt is trailing id, also send this route to events#show
 
   devise_for :users
   root to: "pages#index"

@@ -9,4 +9,12 @@ class Event < ApplicationRecord
     
     has_one :address, as: :addressable
     accepts_nested_attributes_for :address
+
+    self.primary_key = :id
+    before_create :set_id
+
+    private
+        def set_id
+            self.id = ShortIds.new(Event)
+        end
 end

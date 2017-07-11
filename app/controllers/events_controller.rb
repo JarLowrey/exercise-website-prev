@@ -10,15 +10,9 @@ class EventsController < ApplicationController
   # GET /events/1
   # GET /events/1.json
   def show
-    #redirect if :name is not seen in the URL
-    if request.format.html? 
-      name_param = @event.name.parameterize
-      url = request.original_url
-      id_end_indx = url.index(@event.id.to_s) + (@event.id.to_s).length + 1 #+1 for '/' character
-      #all URL txt after id does not match name.parameterize
-      if url[id_end_indx..-1] != @event.name.parameterize
-        redirect_to "/events/#{@event.id}/#{name_param}"
-      end
+    readable_txt = @event.name.parameterize
+    if ShortenableUrls.redirect_for_readability?(request, @event.id, readable_txt)
+      redirect_to "/events/#{@event.id}/#{readable_txt}"
     end
   end
 

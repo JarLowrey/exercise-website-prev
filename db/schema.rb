@@ -62,7 +62,8 @@ ActiveRecord::Schema.define(version: 20170630153123) do
     t.index ["user_id"], name: "index_event_reviews_on_user_id"
   end
 
-  create_table "events", force: :cascade do |t|
+  create_table "events", id: false, force: :cascade do |t|
+    t.string "id", null: false
     t.string "name", null: false
     t.text "description", null: false
     t.integer "min_users"
@@ -71,6 +72,7 @@ ActiveRecord::Schema.define(version: 20170630153123) do
     t.string "recurring"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["id"], name: "index_events_on_id"
   end
 
   create_table "exercise_instances", force: :cascade do |t|
@@ -78,7 +80,7 @@ ActiveRecord::Schema.define(version: 20170630153123) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.float "distance"
-    t.float "#<ActiveRecord::ConnectionAdapters::SQLite3::TableDefinition:0x00000004978340>"
+    t.float "#<ActiveRecord::ConnectionAdapters::SQLite3::TableDefinition:0x00000004a95ac0>"
   end
 
   create_table "exercise_types", force: :cascade do |t|
