@@ -80,7 +80,7 @@ ActiveRecord::Schema.define(version: 20170630153123) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.float "distance"
-    t.float "#<ActiveRecord::ConnectionAdapters::SQLite3::TableDefinition:0x00000004a95ac0>"
+    t.float "#<ActiveRecord::ConnectionAdapters::SQLite3::TableDefinition:0x000000045238a8>"
   end
 
   create_table "exercise_types", force: :cascade do |t|

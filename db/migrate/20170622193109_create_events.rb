@@ -1,7 +1,7 @@
 class CreateEvents < ActiveRecord::Migration[5.1]
   def change
     create_table :events, id:false do |t|
-      t.string :id, null: false,index: true
+      t.string :id, null: false, index: true, unique:true
 
       t.string  :name, null: false
       t.text  :description, null: false
