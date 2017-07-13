@@ -5,6 +5,8 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
+gem 'canonical-rails', github: 'jumph4x/canonical-rails'
+
 #recurring events and datetime
 #gem 'simple_calendar'
 #gem 'ice_cube'

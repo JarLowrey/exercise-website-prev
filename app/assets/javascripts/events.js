@@ -5,10 +5,27 @@ var map;
 var placeService;
 var autcomplete;
 var geocoder;
+var marker;
 
 document.addEventListener("DOMContentLoaded", initialize);
 
+function submit_map_details(event){
+    console.log(event)
+}
 
+function placeMarker(position, map) {
+    //clear marker if it exists
+    if(marker){
+        marker.setMap(null);
+    }
+    //create a new marker where the user clicked
+    marker = new google.maps.Marker({
+        position: position,
+        map: map
+    });
+    //position map at new marker
+    //map.panTo(position);
+}
 
 async function initialize() {
     //init autocomplete
@@ -28,6 +45,9 @@ async function initialize() {
     map = new google.maps.Map(document.getElementById('map'), {
         zoom: zoom,
         center: pos
+    });
+    map.addListener('click', function(e) {
+        placeMarker(e.latLng, map);
     });
 
     geocoder = new google.maps.Geocoder();

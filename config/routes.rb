@@ -4,8 +4,12 @@ Rails.application.routes.draw do
   get "/events/:id/*other" => "events#show" #if any txt is trailing id, also send this route to events#show
   
   #alias the "events" routes
-  resources :e, controller: 'events'
-  get "/e/:id/*other" => "events#show" #if any txt is trailing id, also send this route to events#show
+  match '/e/*other',
+    via: :all, 
+    to: redirect { |path_params, req|
+      #We are matching /e from an absolute path. Thus, the first occurrence of '/e' is the one we want to substitute for '/events'. Sub the first and return
+      req.original_url.sub('/e','/events')
+    }
 
   devise_for :users
   root to: "pages#index"

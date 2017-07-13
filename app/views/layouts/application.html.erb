@@ -15,11 +15,15 @@ end
 <html>
   <head>
     <title>FitTogether</title>
+    <!-- General Meta stuff -->
     <%= csrf_meta_tags %>
+    <%= canonical_tag -%>
+
 
     <!-- general assets -->
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
     <!-- controller-specific assets -->
     <% if asset_exist? "#{params[:controller]}.js" %>
       <%= javascript_include_tag params[:controller]%>

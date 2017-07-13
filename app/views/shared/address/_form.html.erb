@@ -1,10 +1,11 @@
+<%
+#Very important that the caller submit's maps JS details as URL parameters
+#EXAMPLE: form_for @model, html: { onsubmit: "submit_map_details()" } 
+%>
+
 <!-- Google Maps Must be loaded -->
 <% content_for :head do %>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCMh8-5D3mJSXspmJrhSTtt0ToGiA-JLBc&libraries=places"></script>
 <% end %>
 
 <div id="map"></div>
-
-<%= f.input :address %>
-<%= f.input :latitude %>
-<%= f.input :longitude %>
