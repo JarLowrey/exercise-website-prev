@@ -16,10 +16,4 @@ module ShortenableUrls
 
         return false
     end
-
-    def self.controller_alias(request)
-        url = request.original_url
-        pieces = url.split("/")
-        return pieces[3]
-    end
 end

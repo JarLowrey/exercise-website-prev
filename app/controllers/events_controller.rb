@@ -12,7 +12,7 @@ class EventsController < ApplicationController
   def show
     readable_txt = @event.name.parameterize
     if ShortenableUrls.redirect_for_readability?(request, @event.id, readable_txt)
-      redirect_to "/#{ShortenableUrls.controller_alias(request)}/#{@event.id}/#{readable_txt}"
+      redirect_to "/events/#{@event.id}/#{readable_txt}"
     end
   end
 
