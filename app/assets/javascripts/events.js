@@ -1,21 +1,19 @@
+//= require address
+
+
 //Place all the behaviors and hooks related to the matching controller here.
 //All this logic will automatically be available in application.js.
 
 var map;
 var placeService;
-var autcomplete;
 var geocoder;
 var marker;
 
-document.addEventListener("DOMContentLoaded", initialize);
-
-function submit_map_details(event){
-    console.log(event)
-}
+document.addEventListener("DOMContentLoaded", initialize_events);
 
 function placeMarker(position, map) {
     //clear marker if it exists
-    if(marker){
+    if (marker) {
         marker.setMap(null);
     }
     //create a new marker where the user clicked
@@ -23,15 +21,9 @@ function placeMarker(position, map) {
         position: position,
         map: map
     });
-    //position map at new marker
-    //map.panTo(position);
 }
 
-async function initialize() {
-    //init autocomplete
-    // let start = document.getElementById('location');
-    // autcomplete = new google.maps.places.Autocomplete(start);
-
+async function initialize_events() {
     //init map with current location
     let zoom = 3;
     let pos = {
@@ -42,13 +34,16 @@ async function initialize() {
         zoom = 14;
         pos = await get_current_pos();
     }
-    map = new google.maps.Map(document.getElementById('map'), {
-        zoom: zoom,
-        center: pos
-    });
-    map.addListener('click', function(e) {
-        placeMarker(e.latLng, map);
-    });
+    let map_el = document.getElementById('map');
+    if (map_el) {
+        map = new google.maps.Map(document.getElementById('map'), {
+            zoom: zoom,
+            center: pos
+        });
+        map.addListener('click', function (e) {
+            placeMarker(e.latLng, map);
+        });
+    }
 
     geocoder = new google.maps.Geocoder();
 }

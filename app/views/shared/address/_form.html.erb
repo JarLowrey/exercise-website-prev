@@ -1,6 +1,6 @@
 <%
 #Very important that the caller submit's maps JS details as URL parameters
-#EXAMPLE: form_for @model, html: { onsubmit: "submit_map_details()" } 
+#EXAMPLE: form_for @model, html: { onsubmit: "submit_addr_details()" } 
 %>
 
 <!-- Google Maps Must be loaded -->
@@ -8,4 +8,4 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCMh8-5D3mJSXspmJrhSTtt0ToGiA-JLBc&libraries=places"></script>
 <% end %>
 
-<div id="map"></div>
+<%= f.input :address, html: { id: :edit_account }  %>

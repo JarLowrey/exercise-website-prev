@@ -20,10 +20,6 @@ class EventsController < ApplicationController
   def new
     @event = Event.new
     @address = @event.build_address
-    #newish = Address.new(addressable: @event)
-    #build = @event.build_address
-    #creat = @event.create_address
-    #@event.address =  @addressable.User.new
   end
 
   # GET /events/1/edit
