@@ -8,41 +8,42 @@ var map;
 var placeService;
 var geocoder;
 var marker;
+var markerPos = null;
 
 document.addEventListener("DOMContentLoaded", initialize_events);
 
-function placeMarker(position, map) {
-    //clear marker if it exists
-    if (marker) {
-        marker.setMap(null);
-    }
-    //create a new marker where the user clicked
+function placeMarker(position) {
+    //create a new marker at the given position
     marker = new google.maps.Marker({
         position: position,
         map: map
     });
+    // console.log(marker.position.lat(), position);
 }
 
-async function initialize_events() {
-    //init map with current location
+function initialize_events() {
+    //decide upon map's initial position
     let zoom = 3;
     let pos = {
         'lat': 0,
         'lng': 0
     };
-    if (navigator.geolocation) {
+    if (markerPos) {
         zoom = 14;
-        pos = await get_current_pos();
+        pos = markerPos;
     }
+
+    //initialize map
     let map_el = document.getElementById('map');
     if (map_el) {
         map = new google.maps.Map(document.getElementById('map'), {
             zoom: zoom,
             center: pos
         });
-        map.addListener('click', function (e) {
-            placeMarker(e.latLng, map);
-        });
+
+        if(markerPos){
+            placeMarker(markerPos);
+        }
     }
 
     geocoder = new google.maps.Geocoder();

@@ -3,6 +3,10 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCMh8-5D3mJSXspmJrhSTtt0ToGiA-JLBc&libraries=places"></script>
 <% end %>
 
+<script>
+markerPos = new google.maps.LatLng(<%= @event.address.latitude %>,<%= @event.address.longitude %>);
+</script>
+
 <p id="notice"><%= notice %></p>
 
 <%= @event.attributes %>

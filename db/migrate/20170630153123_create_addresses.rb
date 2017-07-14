@@ -9,7 +9,8 @@ class CreateAddresses < ActiveRecord::Migration[5.1]
       t.decimal :longitude, null: false, precision: 10, scale: 6, index: true
 
       #polymorphic behavior - https://kconrails.com/2010/10/19/common-addresses-using-polymorphism-and-nested-attributes-in-rails/
-      t.belongs_to :addressable, polymorphic: true, index: true
+      t.string :addressable_id, index: true
+      t.string :addressable_type, index: true
     end
   end
 end

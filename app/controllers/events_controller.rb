@@ -10,9 +10,11 @@ class EventsController < ApplicationController
   # GET /events/1
   # GET /events/1.json
   def show
+    #redirect to a readable URL
     readable_txt = @event.name.parameterize
     if ShortenableUrls.redirect_for_readability?(request, @event.id, readable_txt)
       redirect_to "/events/#{@event.id}/#{readable_txt}"
+      return
     end
   end
 
@@ -30,6 +32,8 @@ class EventsController < ApplicationController
   # POST /events.json
   def create
     @event = Event.new(event_params)
+    @event.address.addressable = @event #ensure that address's addressable exists
+
     respond_to do |format|
       if @event.save
         format.html { redirect_to @event, notice: 'Event was successfully created.' }
@@ -73,6 +77,6 @@ class EventsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_params
-      params.require(:event).permit(:name, :cost, :description, { address_attributes: [:longitude, :latitude, :address] } )
+      params.require(:event).permit(:name, :cost, :description, { address_attributes: [:address] } ) #address_attributes -> :longitude, :latitude
     end
 end

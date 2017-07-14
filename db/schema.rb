@@ -16,9 +16,10 @@ ActiveRecord::Schema.define(version: 20170630153123) do
     t.string "address"
     t.decimal "latitude", precision: 10, scale: 6, null: false
     t.decimal "longitude", precision: 10, scale: 6, null: false
+    t.string "addressable_id"
     t.string "addressable_type"
-    t.integer "addressable_id"
-    t.index ["addressable_type", "addressable_id"], name: "index_addresses_on_addressable_type_and_addressable_id"
+    t.index ["addressable_id"], name: "index_addresses_on_addressable_id"
+    t.index ["addressable_type"], name: "index_addresses_on_addressable_type"
     t.index ["latitude"], name: "index_addresses_on_latitude"
     t.index ["longitude"], name: "index_addresses_on_longitude"
   end
@@ -80,7 +81,7 @@ ActiveRecord::Schema.define(version: 20170630153123) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.float "distance"
-    t.float "#<ActiveRecord::ConnectionAdapters::SQLite3::TableDefinition:0x000000045238a8>"
+    t.float "#<ActiveRecord::ConnectionAdapters::SQLite3::TableDefinition:0x00000004359108>"
   end
 
   create_table "exercise_types", force: :cascade do |t|
