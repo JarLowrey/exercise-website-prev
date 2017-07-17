@@ -9,3 +9,5 @@
 <% end %>
 
 <%= f.input :address %>
+<%= f.input :latitude, readonly: true, wrapper_html: { style: ' display:none; '} %> 
+<%= f.input :longitude, readonly: true, wrapper_html: { style: ' display:none; '} %>

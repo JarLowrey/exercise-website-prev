@@ -1,4 +1,7 @@
 class Event < ApplicationRecord
+    validates :name, presence: true, allow_blank: false
+    validates :description, presence: true, allow_blank: false
+
     #user roles
     has_many :coaches
     has_many :attendees

@@ -1,4 +1,9 @@
 class Address < ApplicationRecord
+    validates :address, presence: true, allow_blank: false
+    validates :latitude, presence: true, allow_blank: false
+    validates :longitude, presence: true, allow_blank: false
+
+
     belongs_to :addressable, polymorphic: true
 
     geocoded_by :address   # can also be an IP address

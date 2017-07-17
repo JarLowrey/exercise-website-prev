@@ -5,6 +5,13 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
+#form helpers
+gem 'simple_form'
+gem 'client_side_validations'
+gem 'client_side_validations-simple_form'
+
+gem 'jquery-rails'
+
 gem 'canonical-rails', github: 'jumph4x/canonical-rails'
 
 #recurring events and datetime
@@ -19,9 +26,6 @@ gem 'money-rails'
 
 #login
 gem 'devise'
-
-#form helpers
-gem 'simple_form'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.1.1'

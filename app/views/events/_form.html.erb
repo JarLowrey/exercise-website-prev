@@ -1,9 +1,9 @@
-<%= simple_form_for @event do |f| %>
+<%= simple_form_for @event, validate: true, html: {id: 'event_new'} do |f| %>
   <%= f.input :name %>
   <%= f.input :description %>
 
-  <%= f.simple_fields_for :address do |address| %>
-    <%= render :partial => 'shared/address/form', :locals => {:f => address} %>
+  <%= f.simple_fields_for :address, validate: true do |address| %>
+    <%= render partial: 'shared/address/form', locals: {f: address} %>
   <% end %>
   
   <%= f.button :submit %>
