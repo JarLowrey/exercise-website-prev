@@ -24,14 +24,6 @@ ActiveRecord::Schema.define(version: 20170630153123) do
     t.index ["longitude"], name: "index_addresses_on_longitude"
   end
 
-  create_table "attendees", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "event_id"
-    t.boolean "verified"
-    t.index ["event_id"], name: "index_attendees_on_event_id"
-    t.index ["user_id"], name: "index_attendees_on_user_id"
-  end
-
   create_table "coaches", force: :cascade do |t|
     t.integer "user_id"
     t.integer "event_id"
@@ -43,13 +35,6 @@ ActiveRecord::Schema.define(version: 20170630153123) do
     t.integer "event_id"
     t.boolean "mandatory"
     t.index ["event_id"], name: "index_event_gear_on_event_id"
-  end
-
-  create_table "event_organizers", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "event_id"
-    t.index ["event_id"], name: "index_event_organizers_on_event_id"
-    t.index ["user_id"], name: "index_event_organizers_on_user_id"
   end
 
   create_table "event_reviews", force: :cascade do |t|
@@ -81,7 +66,7 @@ ActiveRecord::Schema.define(version: 20170630153123) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.float "distance"
-    t.float "#<ActiveRecord::ConnectionAdapters::SQLite3::TableDefinition:0x00000004359108>"
+    t.float "#<ActiveRecord::ConnectionAdapters::SQLite3::TableDefinition:0x000000046fa6e0>"
   end
 
   create_table "exercise_types", force: :cascade do |t|
@@ -93,13 +78,6 @@ ActiveRecord::Schema.define(version: 20170630153123) do
   create_table "gear_types", force: :cascade do |t|
     t.string "name", null: false
     t.string "url"
-  end
-
-  create_table "group_admins", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "group_id"
-    t.index ["group_id"], name: "index_group_admins_on_group_id"
-    t.index ["user_id"], name: "index_group_admins_on_user_id"
   end
 
   create_table "group_types", force: :cascade do |t|

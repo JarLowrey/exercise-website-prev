@@ -58,7 +58,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.1]
     t.belongs_to :user
     t.belongs_to :event
   end
-
+=begin
   create_table :group_admins do |t|
     t.belongs_to :user
     t.belongs_to :group
@@ -75,4 +75,5 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.1]
     t.belongs_to :user
     t.belongs_to :event
   end
+=end
 end
