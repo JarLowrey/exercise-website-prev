@@ -9,6 +9,10 @@ markerPos = new google.maps.LatLng(<%= @event.address.latitude %>,<%= @event.add
 
 <p id="notice"><%= notice %></p>
 
+<% if user_signed_in? %>
+    <%= link_to "Sign Up For Event", add_participant_to_event_path, method: :put, remote: true %>
+<% end %>
+
 <%= @event.attributes %>
 <br/>
 <br/>

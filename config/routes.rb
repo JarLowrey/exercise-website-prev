@@ -1,6 +1,10 @@
 # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 Rails.application.routes.draw do
-  resources :events
+  resources :events do
+    member do
+      put :add_participant_to #current_user is set to be the participant of @event
+    end
+  end
   get "/events/:id/*other" => "events#show" #if any txt is trailing id, also send this route to events#show
   
   #alias the "events" routes
