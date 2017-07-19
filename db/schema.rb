@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(version: 20170630153123) do
     t.integer "user_id"
     t.integer "event_id"
     t.index ["event_id"], name: "index_event_coaches_on_event_id"
+    t.index ["user_id", "event_id"], name: "index_event_coaches_on_user_id_and_event_id", unique: true
     t.index ["user_id"], name: "index_event_coaches_on_user_id"
   end
 
@@ -41,6 +42,7 @@ ActiveRecord::Schema.define(version: 20170630153123) do
     t.integer "user_id"
     t.integer "event_id"
     t.index ["event_id"], name: "index_event_organizers_on_event_id"
+    t.index ["user_id", "event_id"], name: "index_event_organizers_on_user_id_and_event_id", unique: true
     t.index ["user_id"], name: "index_event_organizers_on_user_id"
   end
 
@@ -48,6 +50,7 @@ ActiveRecord::Schema.define(version: 20170630153123) do
     t.integer "user_id"
     t.integer "event_id"
     t.index ["event_id"], name: "index_event_participants_on_event_id"
+    t.index ["user_id", "event_id"], name: "index_event_participants_on_user_id_and_event_id", unique: true
     t.index ["user_id"], name: "index_event_participants_on_user_id"
   end
 
@@ -80,7 +83,7 @@ ActiveRecord::Schema.define(version: 20170630153123) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.float "distance"
-    t.float "#<ActiveRecord::ConnectionAdapters::SQLite3::TableDefinition:0x000000054df4e0>"
+    t.float "#<ActiveRecord::ConnectionAdapters::SQLite3::TableDefinition:0x00000005558e30>"
   end
 
   create_table "exercise_types", force: :cascade do |t|

@@ -20,6 +20,6 @@ ExerciseType.create! name: "Rugby", icon_url: "icons8-Rugby-48.png", verified: t
 ExerciseType.create! name: "Frisbee", icon_url: "icons8-Frisbee-48.png", verified: true
 
 #Create users
-user1 = User.create! email: "user1@example.com", password: "user123", first_name: "James", last_name: "Lowrey"
+user1 = User.create! email: "user1@example.com", password: "12345678", first_name: "James", last_name: "Lowrey"
 
 print("seed completed - view development.sqlite3 by uploading on https://sqliteonline.com/ \n")

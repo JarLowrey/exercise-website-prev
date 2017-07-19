@@ -28,10 +28,13 @@ class CreateEvents < ActiveRecord::Migration[5.1]
 
 
     #----------Create event roles for users----------
+    #Each tables uses a composite key index - https://stackoverflow.com/questions/880981/in-a-join-table-whats-the-best-workaround-for-rails-absence-of-a-composite-ke/881028#881028
     create_table :event_coaches do |t|
       t.belongs_to :user
       t.belongs_to :event
     end
+    add_index :event_coaches, [ :user_id, :event_id ], unique: true
+
 
     create_table :event_participants do |t|
       t.belongs_to :user
@@ -39,10 +42,13 @@ class CreateEvents < ActiveRecord::Migration[5.1]
       
       #t.boolean :verified
     end
+    add_index :event_participants, [ :user_id, :event_id ], unique: true
+
 
     create_table :event_organizers do |t|
       t.belongs_to :user
       t.belongs_to :event
     end
+    add_index :event_organizers, [ :user_id, :event_id ], unique: true
   end
 end
