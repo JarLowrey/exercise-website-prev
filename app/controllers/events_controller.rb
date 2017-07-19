@@ -1,5 +1,5 @@
 class EventsController < ApplicationController
-  before_action :set_event, only: [:show, :edit, :update, :destroy, :add_participant_to]
+  before_action :set_event, only: [:show, :edit, :update, :destroy, :add_participant_to, :remove_participant_from]
 
   # GET /events
   # GET /events.json
@@ -10,10 +10,6 @@ class EventsController < ApplicationController
   # GET /events/1
   # GET /events/1.json
   def show
-    if user_signed_in? 
-      @participant = @event.participants.where(user_id: current_user.id).first
-    end
-
     #redirect to a readable URL
     readable_txt = @event.name.parameterize
     if ShortenableUrls.redirect_for_readability?(request, @event.id, readable_txt)
@@ -75,18 +71,23 @@ class EventsController < ApplicationController
 
   def add_participant_to
     new_user = @event.participants.create(user_id: current_user.id)
+    redirect_to @event, notice: 'You are now participating in this event!'
   end
 
   def remove_participant_from
     if @participant != nil
       @participant.destroy
     end
+    redirect_to @event, notice: 'You are no longer participating in this event.'
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_event
       @event = Event.find(params[:id])
+      if user_signed_in? 
+        @participant = @event.participants.where(user_id: current_user.id).first
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

@@ -3,9 +3,9 @@ class Event < ApplicationRecord
     validates :description, presence: true, allow_blank: false
 
     #user roles
-    has_many :coaches
-    has_many :participants
-    has_many :organizers
+    has_many :coaches, dependent: :destroy
+    has_many :participants, dependent: :destroy
+    has_many :organizers, dependent: :destroy
 
     #other data
     has_one :cost

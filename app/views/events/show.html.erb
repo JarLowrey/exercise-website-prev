@@ -3,15 +3,15 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCMh8-5D3mJSXspmJrhSTtt0ToGiA-JLBc&libraries=places"></script>
 <% end %>
 
+<%
+num_participants = @event.participants.count
+%>
+
 <script>
 markerPos = new google.maps.LatLng(<%= @event.address.latitude %>,<%= @event.address.longitude %>);
 </script>
 
-<p id="notice"><%= notice %></p>
-
-<h1> <% @event.participants.count %> people going to this event </h1>
-
-<% console %>
+<p><%= pluralize(num_participants,'person') %> going to this event </p>
 
 <% if user_signed_in? 
     if @participant != nil %>
@@ -21,13 +21,11 @@ markerPos = new google.maps.LatLng(<%= @event.address.latitude %>,<%= @event.add
     <%  end
 end %>
 
-<%= @event.attributes %>
-<br/>
-<br/>
-<%= Event.reflect_on_all_associations.map{|x| x.class_name}.compact%>
-<br/>
-<br/>
-<p>address - <%= @event.address.attributes %></p>
+<%= 
+#Event.reflect_on_all_associations.map{|x| x.class_name}.compact
+#@event.attributes
+#@event.address.attributes
+ %>
 
 <div id="map"></div>
 
