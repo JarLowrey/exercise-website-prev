@@ -4,8 +4,9 @@ class Event < ApplicationRecord
 
     #user roles
     has_many :coaches
-    has_many :attendees
-    has_many :event_organizers
+    has_many :participants
+    has_many :organizers
+
     #other data
     has_one :cost
     has_many :exercise_instances

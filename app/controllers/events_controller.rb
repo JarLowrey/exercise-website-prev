@@ -10,6 +10,10 @@ class EventsController < ApplicationController
   # GET /events/1
   # GET /events/1.json
   def show
+    if user_signed_in? 
+      @participant = @event.participants.where(user_id: current_user.id).first
+    end
+
     #redirect to a readable URL
     readable_txt = @event.name.parameterize
     if ShortenableUrls.redirect_for_readability?(request, @event.id, readable_txt)
@@ -33,9 +37,9 @@ class EventsController < ApplicationController
   def create
     @event = Event.new(event_params)
     @event.address.addressable = @event #ensure that address's addressable exists
-
     respond_to do |format|
       if @event.save
+        add_participant_to #add the creator as a participant of this event
         format.html { redirect_to @event, notice: 'Event was successfully created.' }
         format.json { render :show, status: :created, location: @event }
       else
@@ -70,7 +74,13 @@ class EventsController < ApplicationController
   end
 
   def add_participant_to
-    byebug
+    new_user = @event.participants.create(user_id: current_user.id)
+  end
+
+  def remove_participant_from
+    if @participant != nil
+      @participant.destroy
+    end
   end
 
   private

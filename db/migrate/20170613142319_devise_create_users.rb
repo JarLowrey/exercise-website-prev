@@ -46,34 +46,4 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.1]
     # add_index :users, :confirmation_token,   unique: true
     # add_index :users, :unlock_token,         unique: true
   end
-
-
-
-
-
-  #----------Create user roles----------
-
-
-  create_table :coaches do |t|
-    t.belongs_to :user
-    t.belongs_to :event
-  end
-=begin
-  create_table :group_admins do |t|
-    t.belongs_to :user
-    t.belongs_to :group
-  end
-
-  create_table :attendees do |t|
-    t.belongs_to :user
-    t.belongs_to :event
-    
-    t.boolean :verified
-  end
-
-  create_table :event_organizers do |t|
-    t.belongs_to :user
-    t.belongs_to :event
-  end
-=end
 end

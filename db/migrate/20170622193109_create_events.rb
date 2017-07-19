@@ -25,5 +25,24 @@ class CreateEvents < ActiveRecord::Migration[5.1]
 
       t.timestamps
     end
+
+
+    #----------Create event roles for users----------
+    create_table :event_coaches do |t|
+      t.belongs_to :user
+      t.belongs_to :event
+    end
+
+    create_table :event_participants do |t|
+      t.belongs_to :user
+      t.belongs_to :event
+      
+      #t.boolean :verified
+    end
+
+    create_table :event_organizers do |t|
+      t.belongs_to :user
+      t.belongs_to :event
+    end
   end
 end

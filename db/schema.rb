@@ -24,17 +24,31 @@ ActiveRecord::Schema.define(version: 20170630153123) do
     t.index ["longitude"], name: "index_addresses_on_longitude"
   end
 
-  create_table "coaches", force: :cascade do |t|
+  create_table "event_coaches", force: :cascade do |t|
     t.integer "user_id"
     t.integer "event_id"
-    t.index ["event_id"], name: "index_coaches_on_event_id"
-    t.index ["user_id"], name: "index_coaches_on_user_id"
+    t.index ["event_id"], name: "index_event_coaches_on_event_id"
+    t.index ["user_id"], name: "index_event_coaches_on_user_id"
   end
 
   create_table "event_gear", force: :cascade do |t|
     t.integer "event_id"
     t.boolean "mandatory"
     t.index ["event_id"], name: "index_event_gear_on_event_id"
+  end
+
+  create_table "event_organizers", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "event_id"
+    t.index ["event_id"], name: "index_event_organizers_on_event_id"
+    t.index ["user_id"], name: "index_event_organizers_on_user_id"
+  end
+
+  create_table "event_participants", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "event_id"
+    t.index ["event_id"], name: "index_event_participants_on_event_id"
+    t.index ["user_id"], name: "index_event_participants_on_user_id"
   end
 
   create_table "event_reviews", force: :cascade do |t|
@@ -66,7 +80,7 @@ ActiveRecord::Schema.define(version: 20170630153123) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.float "distance"
-    t.float "#<ActiveRecord::ConnectionAdapters::SQLite3::TableDefinition:0x000000046fa6e0>"
+    t.float "#<ActiveRecord::ConnectionAdapters::SQLite3::TableDefinition:0x0000000504d300>"
   end
 
   create_table "exercise_types", force: :cascade do |t|
