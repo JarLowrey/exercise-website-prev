@@ -2,7 +2,7 @@ class Event < ApplicationRecord
     validates :name, presence: true, allow_blank: false
     validates :description, presence: true, allow_blank: false
 
-    #user roles
+    #user-event roles
     has_many :coaches, dependent: :destroy
     has_many :participants, dependent: :destroy
     has_many :organizers, dependent: :destroy

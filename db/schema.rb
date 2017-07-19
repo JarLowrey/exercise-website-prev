@@ -80,7 +80,7 @@ ActiveRecord::Schema.define(version: 20170630153123) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.float "distance"
-    t.float "#<ActiveRecord::ConnectionAdapters::SQLite3::TableDefinition:0x00000004ba2a58>"
+    t.float "#<ActiveRecord::ConnectionAdapters::SQLite3::TableDefinition:0x000000054df4e0>"
   end
 
   create_table "exercise_types", force: :cascade do |t|
@@ -106,8 +106,8 @@ ActiveRecord::Schema.define(version: 20170630153123) do
     t.integer "age"
     t.decimal "weight", precision: 4, scale: 1
     t.decimal "height", precision: 4, scale: 2
-    t.string "first_name"
-    t.string "last_name"
+    t.string "first_name", null: false
+    t.string "last_name", null: false
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"

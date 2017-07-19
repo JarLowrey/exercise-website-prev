@@ -1,12 +1,12 @@
 class DeviseCreateUsers < ActiveRecord::Migration[5.1]
   def change
     create_table :users do |t|
-      #Custom stuff
+      #personal_details
       t.integer :age
       t.decimal :weight, precision: 4, scale: 1
       t.decimal :height, precision: 4, scale: 2
-      t.string :first_name
-      t.string :last_name
+      t.string :first_name, null: false
+      t.string :last_name, null: false
 
       ## Database authenticatable
       t.string :email,              null: false, default: ""
