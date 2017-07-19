@@ -1,6 +1,6 @@
 module ShortIds
-    @radix = ('0'..'9').to_a + ('a'..'z').to_a + ['$','-','_','+','!','*','(',')',','] #URL safe, lowercase characters
-
+    @radix = ('0'..'9').to_a + ('a'..'z').to_a + ('A'..'Z').to_a + ['$','-','_','+','!','*','(',')',','] #URL safe, lowercase characters
+    
     #Load blacklisted words from CSV into an iterable data structure
     @blacklist = File.read(Rails.root.join('lib', 'assets', 'blacklist_words.csv')).split('\n')
     #require 'csv' #if you have a more complicated CSV setup
@@ -31,7 +31,7 @@ module ShortIds
     end
 
     #Create an unused id for a given model
-    def self.new(model, max_len=7)
+    def self.new(model, max_len = 5)
         id = 0
         loop do
             id = self.create_id(max_len)

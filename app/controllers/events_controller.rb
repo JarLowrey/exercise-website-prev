@@ -35,7 +35,7 @@ class EventsController < ApplicationController
     @event.address.addressable = @event #ensure that address's addressable exists
     respond_to do |format|
       if @event.save
-        add_participant_to #add the creator as a participant of this event
+        add_current_user_as_a_participant
         format.html { redirect_to @event, notice: 'Event was successfully created.' }
         format.json { render :show, status: :created, location: @event }
       else
@@ -70,7 +70,7 @@ class EventsController < ApplicationController
   end
 
   def add_participant_to
-    new_user = @event.participants.create(user_id: current_user.id)
+    add_current_user_as_a_participant
     redirect_to @event, notice: 'You are now participating in this event!'
   end
 
@@ -82,6 +82,9 @@ class EventsController < ApplicationController
   end
 
   private
+    def add_current_user_as_a_participant
+      @event.participants.create(user_id: current_user.id)
+    end
     # Use callbacks to share common setup or constraints between actions.
     def set_event
       @event = Event.find(params[:id])
