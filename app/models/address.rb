@@ -4,7 +4,7 @@ class Address < ApplicationRecord
     validates :longitude, presence: true, allow_blank: false
 
 
-    belongs_to :addressable, polymorphic: true
+    belongs_to :addressable, polymorphic: true, optional: true
 
     geocoded_by :address   # can also be an IP address
     #only geocode the address if it is passed in, coordinates are not, and the address has changed

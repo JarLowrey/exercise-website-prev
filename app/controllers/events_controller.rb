@@ -1,6 +1,7 @@
 class EventsController < ApplicationController
   before_action :set_event, only: [:show, :edit, :update, :destroy, :add_participant_to, :remove_participant_from]
-
+  load_and_authorize_resource
+  
   # GET /events
   # GET /events.json
   def index
@@ -32,7 +33,7 @@ class EventsController < ApplicationController
   # POST /events.json
   def create
     @event = Event.new(event_params)
-    @event.address.addressable = @event #ensure that address's addressable exists
+    #@event.address.addressable = @event #ensure that address's addressable exists
     respond_to do |format|
       if @event.save
         add_current_user_as_a_participant if user_signed_in? #TODO: should not be able to create an event if not signed in, this is good enough until AUTH is working

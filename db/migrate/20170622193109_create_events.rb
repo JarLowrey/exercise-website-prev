@@ -33,7 +33,7 @@ class CreateEvents < ActiveRecord::Migration[5.1]
       t.belongs_to :user
       t.belongs_to :event
     end
-    add_index :event_coaches, [ :user_id, :event_id ], unique: true
+    add_index :event_coaches, [ :event_id, :user_id ], unique: true
 
 
     create_table :event_participants do |t|
@@ -42,13 +42,13 @@ class CreateEvents < ActiveRecord::Migration[5.1]
       
       #t.boolean :verified
     end
-    add_index :event_participants, [ :user_id, :event_id ], unique: true
+    add_index :event_participants, [ :event_id, :user_id ], unique: true
 
 
     create_table :event_organizers do |t|
       t.belongs_to :user
       t.belongs_to :event
     end
-    add_index :event_organizers, [ :user_id, :event_id ], unique: true
+    add_index :event_organizers, [ :event_id, :user_id ], unique: true
   end
 end

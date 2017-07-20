@@ -22,4 +22,16 @@ ExerciseType.create! name: "Frisbee", icon_url: "icons8-Frisbee-48.png", verifie
 #Create users
 user1 = User.create! email: "user1@example.com", password: "12345678", first_name: "James", last_name: "Lowrey"
 
-print("seed completed - view development.sqlite3 by uploading on https://sqliteonline.com/ \n")
+
+#create events
+events = []
+event1_addr = Address.create! address: "Columbus OH USA", latitude: 1, longitude: 1
+events.push( Event.create! name: "Test", description: "Testing event in DB", address: event1_addr )
+
+puts "Event IDs:"
+events.each do |event|
+    puts (event.id)
+end
+
+
+puts ("seed completed - view development.sqlite3 by uploading on https://sqliteonline.com/")
