@@ -2,8 +2,17 @@
 Rails.application.routes.draw do
   resources :events do
     member do
-      put :add_participant_to #current_user is set to be the participant of @event
-      put :remove_participant_from #current_user is removed from event participation
+      #add/remove participants
+      put :add_curr_usr_as_participant_to 
+      put :remove_curr_usr_as_participant_from 
+
+      #add/remove organizers
+      put :add_curr_usr_as_organizer_to 
+      put :remove_curr_usr_as_organizer_from 
+
+      #add/remove coaches
+      put :add_curr_usr_as_coach_to 
+      put :remove_curr_usr_as_coach_from 
     end
   end
   get "/events/:id/*other" => "events#show" #if any txt is trailing id, also send this route to events#show

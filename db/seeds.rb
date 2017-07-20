@@ -25,9 +25,14 @@ user1 = User.create! email: "user1@example.com", password: "12345678", first_nam
 
 #create events
 events = []
-event1_addr = Address.create! address: "Columbus OH USA", latitude: 1, longitude: 1
-events.push( Event.create! name: "Test", description: "Testing event in DB", address: event1_addr )
 
+event1_addr = Address.create! address: "Columbus OH USA", latitude: 1, longitude: 1
+event1 = Event.create! name: "Test", description: "Testing event in DB", address: event1_addr
+Event::Participant.create! event: event1, user: user1
+Event::Organizer.create! event: event1, user: user1
+events.push( event1 )
+
+#print all event ids
 puts "Event IDs:"
 events.each do |event|
     puts (event.id)

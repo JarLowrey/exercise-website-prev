@@ -31,14 +31,14 @@ class CreateEvents < ActiveRecord::Migration[5.1]
     #Each tables uses a composite key index - https://stackoverflow.com/questions/880981/in-a-join-table-whats-the-best-workaround-for-rails-absence-of-a-composite-ke/881028#881028
     create_table :event_coaches do |t|
       t.belongs_to :user
-      t.belongs_to :event
+      t.string :event_id
     end
     add_index :event_coaches, [ :event_id, :user_id ], unique: true
 
 
     create_table :event_participants do |t|
       t.belongs_to :user
-      t.belongs_to :event
+      t.string :event_id
       
       #t.boolean :verified
     end
@@ -47,7 +47,7 @@ class CreateEvents < ActiveRecord::Migration[5.1]
 
     create_table :event_organizers do |t|
       t.belongs_to :user
-      t.belongs_to :event
+      t.string :event_id
     end
     add_index :event_organizers, [ :event_id, :user_id ], unique: true
   end
