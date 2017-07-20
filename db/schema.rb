@@ -24,11 +24,18 @@ ActiveRecord::Schema.define(version: 20170630153123) do
     t.index ["longitude"], name: "index_addresses_on_longitude"
   end
 
-  create_table "event_coaches", force: :cascade do |t|
+  create_table "event_admins", force: :cascade do |t|
     t.integer "user_id"
     t.string "event_id"
-    t.index ["event_id", "user_id"], name: "index_event_coaches_on_event_id_and_user_id", unique: true
-    t.index ["user_id"], name: "index_event_coaches_on_user_id"
+    t.index ["event_id", "user_id"], name: "index_event_admins_on_event_id_and_user_id", unique: true
+    t.index ["user_id"], name: "index_event_admins_on_user_id"
+  end
+
+  create_table "event_creators", force: :cascade do |t|
+    t.integer "user_id"
+    t.string "event_id"
+    t.index ["event_id", "user_id"], name: "index_event_creators_on_event_id_and_user_id", unique: true
+    t.index ["user_id"], name: "index_event_creators_on_user_id"
   end
 
   create_table "event_gear", force: :cascade do |t|
@@ -37,16 +44,10 @@ ActiveRecord::Schema.define(version: 20170630153123) do
     t.index ["event_id"], name: "index_event_gear_on_event_id"
   end
 
-  create_table "event_organizers", force: :cascade do |t|
-    t.integer "user_id"
-    t.string "event_id"
-    t.index ["event_id", "user_id"], name: "index_event_organizers_on_event_id_and_user_id", unique: true
-    t.index ["user_id"], name: "index_event_organizers_on_user_id"
-  end
-
   create_table "event_participants", force: :cascade do |t|
     t.integer "user_id"
     t.string "event_id"
+    t.boolean "verified", default: false
     t.index ["event_id", "user_id"], name: "index_event_participants_on_event_id_and_user_id", unique: true
     t.index ["user_id"], name: "index_event_participants_on_user_id"
   end
@@ -60,6 +61,15 @@ ActiveRecord::Schema.define(version: 20170630153123) do
     t.datetime "updated_at", null: false
     t.index ["event_id"], name: "index_event_reviews_on_event_id"
     t.index ["user_id"], name: "index_event_reviews_on_user_id"
+  end
+
+  create_table "event_workers", force: :cascade do |t|
+    t.integer "user_id"
+    t.string "event_id"
+    t.string "job"
+    t.boolean "is_volunteer", null: false
+    t.index ["event_id", "user_id"], name: "index_event_workers_on_event_id_and_user_id", unique: true
+    t.index ["user_id"], name: "index_event_workers_on_user_id"
   end
 
   create_table "events", id: false, force: :cascade do |t|
@@ -80,7 +90,7 @@ ActiveRecord::Schema.define(version: 20170630153123) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.float "distance"
-    t.float "#<ActiveRecord::ConnectionAdapters::SQLite3::TableDefinition:0x00000006234e10>"
+    t.float "#<ActiveRecord::ConnectionAdapters::SQLite3::TableDefinition:0x0000000273ac88>"
   end
 
   create_table "exercise_types", force: :cascade do |t|

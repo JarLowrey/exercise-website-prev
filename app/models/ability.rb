@@ -4,9 +4,12 @@ class Ability
   def initialize(user)
     alias_action :create, :read, :update, :destroy, to: :crud
     alias_action :create, :update, :destroy, to: :write
-    event_role_tables = [Event::Coach, Event::Organizer, Event::Participant]
+    event_role_tables = [Event::Admin, Event::Creator, Event::Worker, Event::Participant]
     
-    user ||= User.new # guest user (not logged in)
+    #user ||= User.new # guest user (not logged in)
+
+    can :read, :all
+    return if user == nil
 
     #events
     can [:read, :create], Event
@@ -42,4 +45,5 @@ class Ability
     # See the wiki for details:
     # https://github.com/CanCanCommunity/cancancan/wiki/Defining-Abilities
   end
+
 end

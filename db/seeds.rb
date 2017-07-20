@@ -29,7 +29,7 @@ events = []
 event1_addr = Address.create! address: "Columbus OH USA", latitude: 1, longitude: 1
 event1 = Event.create! name: "Test", description: "Testing event in DB", address: event1_addr
 Event::Participant.create! event: event1, user: user1
-Event::Organizer.create! event: event1, user: user1
+Event::Creator.create! event: event1, user: user1
 events.push( event1 )
 
 #print all event ids
