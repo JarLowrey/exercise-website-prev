@@ -13,13 +13,20 @@ markerPos = new google.maps.LatLng(<%= @event.address.latitude %>,<%= @event.add
 
 <p><%= pluralize(num_participants,'person') %> going to this event </p>
 
+Participants: 
 <%= @event.participants.to_a %>
 
 <% if user_signed_in? 
     if @participant != nil %>
-        <%= link_to "Remove myself from event", remove_curr_usr_as_participant_from_event_path, method: :put, remote: true %>
+        <%= link_to "Remove myself from event", 
+            event_path(role: Event::Participant.event_role_types[:participant], is_add: true, id: @event.id),
+            action: :add_or_rm_role,
+            method: :put, remote: true %>
     <% else %>
-        <%= link_to "Sign Up For Event", add_curr_usr_as_participant_to_event_path, method: :put, remote: true %>
+        <%= link_to "Sign Up For Event", 
+            event_path(role: Event::Participant.event_role_types[:participant], is_add: false, id: @event.id),
+            action: :add_or_rm_role,
+            method: :put, remote: true %>
     <%  end
 end %>
 

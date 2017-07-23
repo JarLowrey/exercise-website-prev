@@ -12,13 +12,10 @@ class Ability
     return if user == nil
 
     #events
-    can [:read, :create], Event
-    can [:remove_curr_usr_as_participant_from, :add_curr_usr_as_participant_to], Event 
-    can [:remove_usr_as_organizer_from, :add_usr_as_organizer_to,
-          :remove_usr_as_coach_from, :add_usr_as_coach_to], Event 
-    can [:update, :destroy], Event do |event| 
-      user.id != nil and event.organizers.where(user_id: user.id).first.id == user.id #can modify an event if they organized it
-    end
+    can :manage, Event
+    #can [:update, :destroy], Event do |event| 
+    #  user.id != nil and event.organizers.where(user_id: user.id).first.id == user.id #can modify an event if they organized it
+    #end
 
     #event roles
     can :read, event_role_tables
