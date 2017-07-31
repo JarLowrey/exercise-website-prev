@@ -21,7 +21,8 @@ ExerciseType.create! name: "Frisbee", icon_url: "icons8-Frisbee-48.png", verifie
 
 #Create users
 user1 = User.create! email: "user1@example.com", password: "12345678", first_name: "James", last_name: "Lowrey"
-
+user2 = User.create! email: "user2@example.com", password: "12345678", first_name: "James", last_name: "Lowrey"
+user3 = User.create! email: "user3@example.com", password: "12345678", first_name: "James", last_name: "Lowrey"
 
 #create events
 events = []
@@ -30,6 +31,7 @@ event1_addr = Address.create! address: "Columbus OH USA", latitude: 1, longitude
 event1 = Event.create! name: "Test", description: "Testing event in DB", address: event1_addr
 Event::Participant.create! event: event1, user: user1
 Event::Creator.create! event: event1, user: user1
+Event::Admin.create! event: event1, user: user2
 events.push( event1 )
 
 #print all event ids

@@ -3,19 +3,17 @@ class Ability
 
   def initialize(user)
     alias_action :create, :read, :update, :destroy, to: :crud
-    alias_action :create, :update, :destroy, to: :write
+    alias_action :create, :update, :destroy, to: :write    
     event_role_tables = [Event::Admin, Event::Creator, Event::Worker, Event::Participant]
-    
-    #user ||= User.new # guest user (not logged in)
 
+    #user ||= User.new # guest user (not logged in)
     can :read, :all
     return if user == nil
 
     #events
-    can :manage, Event
-    #can [:update, :destroy], Event do |event| 
-    #  user.id != nil and event.organizers.where(user_id: user.id).first.id == user.id #can modify an event if they organized it
-    #end
+    can [:create], Event
+    can [:update, :destroy], Event, creator: { user_id: user.id }
+    can [:update], Event, admins: { user_id: user.id }
 
     #event roles
     can :read, event_role_tables

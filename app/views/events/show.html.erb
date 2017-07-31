@@ -16,6 +16,10 @@ markerPos = new google.maps.LatLng(<%= @event.address.latitude %>,<%= @event.add
 Participants: 
 <%= @event.participants.to_a %>
 
+<br/>
+Creator
+<%= @event.creator.attributes %>
+
 <% if user_signed_in? 
     if @participant != nil %>
         <%= link_to "Remove myself from event", 
@@ -32,9 +36,7 @@ end %>
 
 <%= 
 #Event.reflect_on_all_associations.map{|x| x.class_name}.compact
-#@event.attributes
-#@event.address.attributes
- %>
+%>
 
 <p>Address: <%= @event.address.address %> </p>
 
