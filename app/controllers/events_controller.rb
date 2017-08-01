@@ -1,5 +1,5 @@
 class EventsController < ApplicationController
-  before_action :set_event, only: [:show, :edit, :update, :destroy, :add_participant_to, :remove_participant_from]
+  before_action :set_event, only: [:show, :edit, :update, :destroy]
   load_and_authorize_resource
   
   # GET /events
@@ -52,6 +52,8 @@ class EventsController < ApplicationController
   # PATCH/PUT /events/1
   # PATCH/PUT /events/1.json
   def update
+
+    byebug
     respond_to do |format|
       if @event.update(event_params)
         format.html { redirect_to @event, notice: 'Event was successfully updated.' }
@@ -79,7 +81,7 @@ class EventsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_event
       @event = Event.find(params[:id])
-      @creator = @event.creator
+      @current_user_is_participating = @event.participants.find_by(user_id: current_user.id) != nil if user_signed_in?
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

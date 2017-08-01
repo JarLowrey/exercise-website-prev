@@ -1,9 +1,9 @@
 # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 Rails.application.routes.draw do
-  resources :events
   namespace :events do
-      put "/:id/add_or_rm_role" => "participants#add_or_rm_role"
+      put :add_or_rm_role, to: 'participants#add_or_rm_role'
   end
+  resources :events
   get "/events/:id/*other" => "events#show" #if any txt is trailing id, also send this route to events#show
   
   #alias the "events" routes
