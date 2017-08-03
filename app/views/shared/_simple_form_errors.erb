@@ -1,0 +1,2 @@
+  <% errors = f.object.errors.messages.collect { |k,v| "#{k}: #{v}" if v.length > 0 }.join("\n")%>
+  <%= f.error_notification message: "Errors: #{errors}" %>

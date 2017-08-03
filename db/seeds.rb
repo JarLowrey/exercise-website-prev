@@ -28,7 +28,8 @@ user3 = User.create! email: "user3@example.com", password: "12345678", first_nam
 events = []
 
 event1_addr = Address.create! address: "Columbus OH USA", latitude: 1, longitude: 1
-event1 = Event.create! name: "Test", description: "Testing event in DB", address: event1_addr
+event1_social = SocialProfile.create! website: "www.myblog.com"
+event1 = Event.create! name: "Test", description: "Testing event in DB", address: event1_addr, social_profile: event1_social
 Event::Participant.create! event: event1, user: user1
 Event::Creator.create! event: event1, user: user1
 Event::Admin.create! event: event1, user: user2

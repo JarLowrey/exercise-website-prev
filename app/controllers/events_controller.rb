@@ -34,12 +34,11 @@ class EventsController < ApplicationController
   # POST /events.json
   def create
     @event = Event.new(event_params)
-    byebug
     respond_to do |format|
       if @event.save
-        #creator has some default roles
+        #create the default event roles for the current_user that created the event
         @event.participants.create(user_id: current_user.id)
-        @event.creator = Event::Creator.create(user_id: current_user.id)
+        Event::Creator.create(user_id: current_user.id, event_id: @event.id)
 
         format.html { redirect_to @event, notice: 'Event was successfully created.' }
         format.json { render :show, status: :created, location: @event }
@@ -53,8 +52,6 @@ class EventsController < ApplicationController
   # PATCH/PUT /events/1
   # PATCH/PUT /events/1.json
   def update
-
-    byebug
     respond_to do |format|
       if @event.update(event_params)
         format.html { redirect_to @event, notice: 'Event was successfully updated.' }

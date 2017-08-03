@@ -12,9 +12,13 @@ class Event < ApplicationRecord
     has_one :cost
     has_many :exercise_instances
     
-    #polymorphic tables
+    #Address table
+    validates :address, presence: true, associated: true
     has_one :address, as: :addressable
     accepts_nested_attributes_for :address
+
+    #Social Profile table
+    validates :social_profile, presence: true, associated: true
     has_one :social_profile, as: :shareable
     accepts_nested_attributes_for :social_profile
 

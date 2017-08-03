@@ -90,7 +90,7 @@ ActiveRecord::Schema.define(version: 20170803180227) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.float "distance"
-    t.float "#<ActiveRecord::ConnectionAdapters::SQLite3::TableDefinition:0x00000003dbe608>"
+    t.float "#<ActiveRecord::ConnectionAdapters::SQLite3::TableDefinition:0x000000041aab90>"
   end
 
   create_table "exercise_types", force: :cascade do |t|
@@ -115,7 +115,7 @@ ActiveRecord::Schema.define(version: 20170803180227) do
   create_table "social_profiles", force: :cascade do |t|
     t.string "website"
     t.string "twitter"
-    t.string "pintrest"
+    t.string "pinterest"
     t.string "reddit"
     t.string "google_plus"
     t.string "youtube"

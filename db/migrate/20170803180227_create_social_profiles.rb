@@ -3,7 +3,7 @@ class CreateSocialProfiles < ActiveRecord::Migration[5.1]
     create_table :social_profiles do |t|
       t.string :website
       t.string :twitter
-      t.string :pintrest
+      t.string :pinterest
       t.string :reddit
       t.string :google_plus
       t.string :youtube

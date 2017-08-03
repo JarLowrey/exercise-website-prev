@@ -1,4 +1,6 @@
 <%= simple_form_for @event, validate: true do |f| %>
+  <%= render partial: 'shared/simple_form_errors', locals: {f: f} %>
+
   <%= f.input :name %>
   <%= f.input :description %>
 

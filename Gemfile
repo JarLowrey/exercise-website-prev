@@ -10,7 +10,9 @@ gem 'simple_form'
 gem 'client_side_validations'
 gem 'client_side_validations-simple_form'
 
+#external libs
 gem 'jquery-rails'
+gem 'bootstrap-sass'
 
 gem 'canonical-rails', github: 'jumph4x/canonical-rails'
 
