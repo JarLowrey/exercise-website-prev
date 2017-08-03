@@ -1,5 +1,5 @@
 module ShortIds
-    @radix = ('0'..'9').to_a + ('a'..'z').to_a + ('A'..'Z').to_a + ['$','-','_','+','!','*','(',')',','] #URL safe, lowercase characters
+    @radix = ('0'..'9').to_a + ('a'..'z').to_a + ('A'..'Z').to_a + ['-','_'] #+ ['$','-','_','+','!','*','(',')',','] #URL safe, lowercase characters
     
     #Load blacklisted words from CSV into an iterable data structure
     @blacklist = File.read(Rails.root.join('lib', 'assets', 'blacklist_words.csv')).split('\n')

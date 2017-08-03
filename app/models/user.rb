@@ -9,9 +9,10 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
 
   #user-event roles
-  has_many :coaches, dependent: :destroy
+  has_many :workers, dependent: :destroy
   has_many :participants, dependent: :destroy
-  has_many :organizers, dependent: :destroy
+  has_many :admins, dependent: :destroy
+  has_many :creator, dependent: :destroy
 
   has_one :address
   

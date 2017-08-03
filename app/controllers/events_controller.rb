@@ -75,6 +75,33 @@ class EventsController < ApplicationController
     end
   end
 
+  def add_or_rm_role
+    event = Event.find(event_role_params[:id])
+
+    #choose which model needs to be modified
+    model = nil
+    roles = Event::Participant.event_role_types
+    case event_role_params[:role]
+      when String(roles[:admin])
+        model = Event::Admin
+      when String(roles[:creator])
+        model = Event::Creator
+      when String(roles[:worker])
+        model = Event::Worker
+      when String(roles[:participant])
+        model = Event::Participant
+    end
+    
+    #add/remove the event/user role
+    usr_id = current_user.id
+    if ActiveModel::Type::Boolean.new.cast(event_role_params[:is_add])
+      model.create(event_id: event.id, user_id: usr_id)
+    else
+      model.find_by(event_id: event.id, user_id: usr_id).destroy
+    end
+
+    redirect_to event, notice: 'Changes have been saved!'
+  end
 
 
   private
@@ -86,6 +113,10 @@ class EventsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_params
-      params.require(:event).permit(:name, :cost, :description, { address_attributes: [:address, :longitude, :latitude] } ) 
+      params.require(:event).permit(:name, :cost, :description, { address_attributes: [:address, :longitude, :latitude] } )
+    end
+
+    def event_role_params
+      params.permit(:id, :role, :is_add, :user_id)
     end
 end
