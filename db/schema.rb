@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170630153123) do
+ActiveRecord::Schema.define(version: 20170803180227) do
 
   create_table "addresses", force: :cascade do |t|
     t.string "address"
@@ -90,7 +90,7 @@ ActiveRecord::Schema.define(version: 20170630153123) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.float "distance"
-    t.float "#<ActiveRecord::ConnectionAdapters::SQLite3::TableDefinition:0x00000005755e18>"
+    t.float "#<ActiveRecord::ConnectionAdapters::SQLite3::TableDefinition:0x00000003dbe608>"
   end
 
   create_table "exercise_types", force: :cascade do |t|
@@ -110,6 +110,23 @@ ActiveRecord::Schema.define(version: 20170630153123) do
   end
 
   create_table "groups", force: :cascade do |t|
+  end
+
+  create_table "social_profiles", force: :cascade do |t|
+    t.string "website"
+    t.string "twitter"
+    t.string "pintrest"
+    t.string "reddit"
+    t.string "google_plus"
+    t.string "youtube"
+    t.string "facebook"
+    t.string "instagram"
+    t.string "shareable_id"
+    t.string "shareable_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["shareable_id"], name: "index_social_profiles_on_shareable_id"
+    t.index ["shareable_type"], name: "index_social_profiles_on_shareable_type"
   end
 
   create_table "users", force: :cascade do |t|

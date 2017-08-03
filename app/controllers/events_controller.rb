@@ -23,6 +23,7 @@ class EventsController < ApplicationController
   def new
     @event = Event.new
     @address = @event.build_address
+    @social_profile = @event.build_social_profile
   end
 
   # GET /events/1/edit
@@ -33,7 +34,7 @@ class EventsController < ApplicationController
   # POST /events.json
   def create
     @event = Event.new(event_params)
-    #@event.address.addressable = @event #ensure that address's addressable exists
+    byebug
     respond_to do |format|
       if @event.save
         #creator has some default roles
@@ -113,7 +114,11 @@ class EventsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_params
-      params.require(:event).permit(:name, :cost, :description, { address_attributes: [:address, :longitude, :latitude] } )
+      params.require(:event)
+        .permit(:name, :cost, :description, 
+          { address_attributes: [:address, :longitude, :latitude] },
+          { social_profile_attributes: [:website, :twitter, :pintrest, :reddit, :google_plus, :youtube, :facebook, :instagram] }
+      )
     end
 
     def event_role_params

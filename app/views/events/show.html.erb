@@ -40,6 +40,9 @@ end %>
 
 <p>Address: <%= @event.address.address %> </p>
 
+<% byebug %>
+<%= render partial: 'shared/social_profile/show', locals: {profiles: @event.social_profile} %>
+
 <div id="map"></div>
 
 <%= link_to 'Edit', edit_event_path(@event) %> |

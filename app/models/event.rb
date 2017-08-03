@@ -12,8 +12,11 @@ class Event < ApplicationRecord
     has_one :cost
     has_many :exercise_instances
     
+    #polymorphic tables
     has_one :address, as: :addressable
     accepts_nested_attributes_for :address
+    has_one :social_profile, as: :shareable
+    accepts_nested_attributes_for :social_profile
 
     self.primary_key = :id
     before_create :set_id

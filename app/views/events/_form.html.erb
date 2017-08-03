@@ -5,6 +5,10 @@
   <%= f.simple_fields_for :address, validate: true do |address| %>
     <%= render partial: 'shared/address/form', locals: {f: address} %>
   <% end %>
+
+  <%= f.simple_fields_for :social_profile, validate: true do |social_profile| %>
+    <%= render partial: 'shared/social_profile/form', locals: {f: social_profile} %>
+  <% end %>
   
   <%= f.button :submit %>
 <% end %>
