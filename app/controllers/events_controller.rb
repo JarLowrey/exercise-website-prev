@@ -91,14 +91,17 @@ class EventsController < ApplicationController
     end
     
     #add/remove the event/user role
+    msg=""
     usr_id = current_user.id
     if ActiveModel::Type::Boolean.new.cast(event_role_params[:is_add])
       model.create(event_id: event.id, user_id: usr_id)
+      msg = "You are now participating!"
     else
       model.find_by(event_id: event.id, user_id: usr_id).destroy
+      msg = "You are no longer participating."
     end
 
-    redirect_to event, notice: 'Changes have been saved!'
+    redirect_to event, notice: msg
   end
 
 

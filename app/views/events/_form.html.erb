@@ -1,5 +1,5 @@
 <%= simple_form_for @event, validate: true do |f| %>
-  <%= render partial: 'shared/simple_form_errors', locals: {f: f} %>
+  <%= f.object.errors.full_messages.join(", ") if f.object.errors.any? %>
 
   <%= f.input :name %>
   <%= f.input :description %>
