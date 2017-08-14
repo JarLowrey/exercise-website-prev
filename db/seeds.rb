@@ -28,8 +28,8 @@ run_names = [
     Exercise::Name.create!(name: "Running", exercise: run),
     Exercise::Name.create!(name: "Jog", exercise: run)
 ]
-run.names.push(run_names)
-#run.preferred_name = run_names[0]
+run.exercise_names.push(run_names)
+run.preferred_exercise_name = run_names[0]
 
 swim = Exercise.create! description: "this one sucks"
 swim_names = [ 
@@ -38,7 +38,7 @@ swim_names = [
     Exercise::Name.create!(name: "Paddle", exercise: swim)
     #What to do about freestyle, kick board, etc exercises - ie sub groups? Is this the advantage of a tagging system?
 ]
-swim.names.push(swim_names)
+swim.exercise_names.push(swim_names)
 
 #Create users
 user1 = User.create! email: "user1@example.com", password: "12345678", first_name: "James", last_name: "Lowrey"
