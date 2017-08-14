@@ -7,6 +7,7 @@
 #   Character.create!(name: 'Luke', movie: movies.first)
 
 #Create Exercises
+=begin
 ExerciseType.create! name: "Run", icon_url: "icons8-Running-48.png", verified: true
 ExerciseType.create! name: "Walk", icon_url: "icons8-Walking-48.png", verified: true
 ExerciseType.create! name: "Lift", icon_url: "icons8-WeightLifting-48.png", verified: true
@@ -18,6 +19,26 @@ ExerciseType.create! name: "Football", icon_url: "icons8-Football-48.png", verif
 ExerciseType.create! name: "Soccer", icon_url: "icons8-Soccer Ball-48.png", verified: true
 ExerciseType.create! name: "Rugby", icon_url: "icons8-Rugby-48.png", verified: true
 ExerciseType.create! name: "Frisbee", icon_url: "icons8-Frisbee-48.png", verified: true
+=end
+
+run = Exercise.create! description: "Running around"
+run_names = [ 
+    Exercise::Name.create!(name: "Run", exercise: run),
+    Exercise::Name.create!(name: "Ran", exercise: run),
+    Exercise::Name.create!(name: "Running", exercise: run),
+    Exercise::Name.create!(name: "Jog", exercise: run)
+]
+run.names.push(run_names)
+#run.preferred_name = run_names[0]
+
+swim = Exercise.create! description: "this one sucks"
+swim_names = [ 
+    Exercise::Name.create!(name: "Swim", exercise: swim),
+    Exercise::Name.create!(name: "Swam", exercise: swim),
+    Exercise::Name.create!(name: "Paddle", exercise: swim)
+    #What to do about freestyle, kick board, etc exercises - ie sub groups? Is this the advantage of a tagging system?
+]
+swim.names.push(swim_names)
 
 #Create users
 user1 = User.create! email: "user1@example.com", password: "12345678", first_name: "James", last_name: "Lowrey"

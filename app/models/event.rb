@@ -10,7 +10,7 @@ class Event < ApplicationRecord
 
     #other data
     has_one :cost
-    has_many :exercise_instances
+    has_many :exercises
     
     #Address table
     validates :address, presence: true, associated: true

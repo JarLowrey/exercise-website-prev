@@ -1,0 +1,8 @@
+<p id="notice"><%= notice %></p>
+
+<% for name in @exercise.names %>
+<p> <%=name.name %></p>
+<% end %>
+
+<%= link_to 'Edit', edit_exercise_path(@exercise) %> |
+<%= link_to 'Back', exercises_path %>
