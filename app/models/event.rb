@@ -10,7 +10,8 @@ class Event < ApplicationRecord
 
     #other data
     has_one :cost
-    has_many :exercises
+    has_many :workouts, class_name: "Exercise::Workout"
+    accepts_nested_attributes_for :workouts, reject_if: :all_blank, allow_destroy: true
     
     #Address table
     validates :address, presence: true, associated: true

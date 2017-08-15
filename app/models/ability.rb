@@ -7,6 +7,7 @@ class Ability
     event_role_tables = [Event::Admin, Event::Creator, Event::Worker, Event::Participant]
 
     #user ||= User.new # guest user (not logged in)
+    can :manage, :all
     can :read, :all
     return if user == nil
 
@@ -14,10 +15,9 @@ class Ability
     can [:create],            Event
     can [:update, :destroy],  Event, creator: { user_id: user.id }
     can [:update],            Event, admins: { user_id: user.id }
-    can :manage, Event
 
     #event roles
-    can [:manage], Event::Participant #can edit own role in event
+    can [:manage], Event::Participant, user_id: user.id #can edit own role in event
 =begin
     can :read, event_role_tables
     can :write, event_role_tables do |role|

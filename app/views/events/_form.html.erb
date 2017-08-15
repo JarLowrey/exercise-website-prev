@@ -12,5 +12,10 @@
     <%= render partial: 'shared/social_profile/form', locals: {f: social_profile} %>
   <% end %>
   
+  <%= f.simple_fields_for :workouts, validate: true do |workout| %>
+    <%= render partial: 'shared/workout/form', locals: {f: workout} %>
+    <%= link_to_add_association 'add workout', f, :workouts, partial: 'shared/workout/form' %>
+  <% end %>
+  
   <%= f.button :submit %>
 <% end %>

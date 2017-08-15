@@ -1,0 +1,10 @@
+<div class="nested-fields">
+    <%= f.input :distance %>
+    <%= f.input :duration %>
+
+    <%= f.simple_fields_for :exercise, validate: true do |exercise| %>
+        <%= render partial: 'shared/exercise/form', locals: {f: exercise} %>
+    <% end %>
+
+    <%= link_to_remove_association "remove workout", f %>
+</div>

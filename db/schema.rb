@@ -92,6 +92,14 @@ ActiveRecord::Schema.define(version: 20170813173653) do
     t.index ["name"], name: "index_exercise_names_on_name"
   end
 
+  create_table "exercise_workouts", force: :cascade do |t|
+    t.float "distance"
+    t.time "duration"
+    t.integer "exercise_id"
+    t.string "event_id"
+    t.index ["exercise_id"], name: "index_exercise_workouts_on_exercise_id"
+  end
+
   create_table "exercises", force: :cascade do |t|
     t.string "icon_url"
     t.text "description"

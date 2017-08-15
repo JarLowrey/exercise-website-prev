@@ -39,6 +39,7 @@ swim_names = [
     #What to do about freestyle, kick board, etc exercises - ie sub groups? Is this the advantage of a tagging system?
 ]
 swim.exercise_names.push(swim_names)
+swim.preferred_exercise_name = swim_names[0]
 
 #Create users
 user1 = User.create! email: "user1@example.com", password: "12345678", first_name: "James", last_name: "Lowrey"

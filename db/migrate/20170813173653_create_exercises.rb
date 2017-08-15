@@ -9,5 +9,12 @@ class CreateExercises < ActiveRecord::Migration[5.1]
       t.string :name, null: false, index: true
       t.belongs_to :exercise
     end
+
+    create_table :exercise_workouts do |t|
+      t.float      :distance
+      t.time       :duration
+      t.belongs_to :exercise
+      t.string     :event_id
+    end
   end
 end

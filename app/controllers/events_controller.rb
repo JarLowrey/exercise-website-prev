@@ -24,6 +24,8 @@ class EventsController < ApplicationController
     @event = Event.new
     @address = @event.build_address
     @social_profile = @event.build_social_profile
+    @workouts = @event.workouts.build
+    @exercises = @workouts.build_exercise
   end
 
   # GET /events/1/edit
@@ -33,6 +35,7 @@ class EventsController < ApplicationController
   # POST /events
   # POST /events.json
   def create
+    byebug
     @event = Event.new(event_params)
     respond_to do |format|
       if @event.save
@@ -117,7 +120,11 @@ class EventsController < ApplicationController
       params.require(:event)
         .permit(:name, :cost, :description, 
           { address_attributes: [:address, :longitude, :latitude] },
-          { social_profile_attributes: [:website, :twitter, :pintrest, :reddit, :google_plus, :youtube, :facebook, :instagram] }
+          { social_profile_attributes: [:website, :twitter, :pinterest, :reddit, :google_plus, :youtube, :facebook, :instagram] },
+          { workouts_attributes: [:id, :_destroy, :distance, :duration, 
+              exercise_attributes: [:id, :name] 
+            ] 
+          }
       )
     end
 
