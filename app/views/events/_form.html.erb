@@ -12,11 +12,13 @@
   <%= f.simple_fields_for :social_profile, validate: true do |social_profile| %>
     <%= render partial: 'shared/social_profile/form', locals: {f: social_profile} %>
   <% end %>
-  
-  <%= f.simple_fields_for :workouts, validate: true do |workout| %>
-    <%= render partial: 'shared/workout/form', locals: {f: workout} %>
-    <%= link_to_add_association 'add workout', f, :workouts, partial: 'shared/workout/form' %>
-  <% end %>
+
+  <div>
+    <%= f.simple_fields_for :workouts, validate: true do |workout| %>
+      <%= render partial: 'shared/workout/form', locals: {f: workout} %>
+      <%= link_to_add_association 'add workout', f, :workouts, partial: 'shared/workout/form' %>
+    <% end %>
+  </div>
   
   <%= f.button :submit %>
 <% end %>

@@ -12,6 +12,8 @@ gem 'client_side_validations-simple_form'
 #gem 'acts-as-taggable-on', '~> 5.0'
 gem "cocoon"
 gem "validates_timeliness"
+gem 'nested_scaffold'
+gem 'rack-mini-profiler'
 
 #external libs
 gem 'jquery-rails'
