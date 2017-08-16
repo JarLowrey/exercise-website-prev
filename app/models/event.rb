@@ -1,7 +1,9 @@
 class Event < ApplicationRecord
     validates :name, presence: true, allow_blank: false
     validates :description, presence: true, allow_blank: false
-
+    validates :start, presence: true
+    validates_date :start, on_or_after: :today
+    
     #user-event roles
     has_many :workers, dependent: :destroy
     has_many :participants, dependent: :destroy

@@ -11,6 +11,7 @@ gem 'client_side_validations'
 gem 'client_side_validations-simple_form'
 #gem 'acts-as-taggable-on', '~> 5.0'
 gem "cocoon"
+gem "validates_timeliness"
 
 #external libs
 gem 'jquery-rails'

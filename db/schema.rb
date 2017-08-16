@@ -78,8 +78,7 @@ ActiveRecord::Schema.define(version: 20170813173653) do
     t.text "description", null: false
     t.integer "min_users"
     t.integer "max_users"
-    t.datetime "start_time"
-    t.string "recurring"
+    t.datetime "start"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["id"], name: "index_events_on_id"

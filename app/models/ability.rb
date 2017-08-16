@@ -7,7 +7,6 @@ class Ability
     event_role_tables = [Event::Admin, Event::Creator, Event::Worker, Event::Participant]
 
     #user ||= User.new # guest user (not logged in)
-    can :manage, :all
     can :read, :all
     return if user == nil
 

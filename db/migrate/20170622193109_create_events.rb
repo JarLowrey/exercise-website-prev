@@ -10,8 +10,7 @@ class CreateEvents < ActiveRecord::Migration[5.1]
       t.integer :max_users
 
       #timing
-      t.datetime :start_time
-      t.string :recurring
+      t.datetime :start
 
       t.timestamps
     end
