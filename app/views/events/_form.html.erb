@@ -15,8 +15,8 @@
 
   <div>
     <%= f.simple_fields_for :workouts, validate: true do |workout| %>
-      <%= render partial: 'shared/workout/form', locals: {f: workout} %>
-      <%= link_to_add_association 'add workout', f, :workouts, partial: 'shared/workout/form' %>
+      <%= render partial: 'shared/workout/form', locals: {f: workout, show_remove: false} %>
+      <%= link_to_add_association 'add workout', f, :workouts, partial: 'shared/workout/form'%>
     <% end %>
   </div>
   

@@ -8,10 +8,12 @@ class ExercisesController < ApplicationController
   end
 
   def search_for_named
+    #byebug
     query = exercise_search_params[:q]
     #preprocess prefix? Stem words before saving?!
-    search = Exercise.joins(:exercise_names).where("name LIKE :prefix", prefix: "#{query}%")
-    render json: search.to_json
+    #search = Exercise.joins(:exercise_names).where("name LIKE :prefix", prefix: "#{query}%")
+    names = Exercise::Name.where("name LIKE :prefix", prefix: "#{query}%").order(:name)
+    render json: names.map(&:name)
   end
 
   # GET /exercises/1
