@@ -1,6 +1,6 @@
 class Exercise::Workout < ApplicationRecord
-    belongs_to :exercise
-    belongs_to :event
+    belongs_to :exercise, optional: true
+    belongs_to :event, optional: true
     
     #validates :duration, numericality: { greater_than: 0 }
     #validates :distance, numericality: { greater_than: 0 }

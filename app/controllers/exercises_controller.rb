@@ -7,7 +7,7 @@ class ExercisesController < ApplicationController
     @exercises = Exercise.all
   end
 
-  def search
+  def search_for_named
     query = exercise_search_params[:q]
     #preprocess prefix? Stem words before saving?!
     search = Exercise.joins(:exercise_names).where("name LIKE :prefix", prefix: "#{query}%")

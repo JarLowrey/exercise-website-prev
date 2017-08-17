@@ -2,7 +2,7 @@
 Rails.application.routes.draw do
   resources :exercises do
     collection do
-      get :search
+      get :search_for_named
     end
   end
   resources :events do

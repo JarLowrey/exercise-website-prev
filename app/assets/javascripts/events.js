@@ -1,4 +1,5 @@
 //= require address
+//= require workout
 
 
 //Place all the behaviors and hooks related to the matching controller here.

@@ -14,6 +14,7 @@
 //= require turbolinks
 //= require jquery
 //= require jquery_ujs
+//= require jquery-ui/widgets/autocomplete
 //= require rails.validations
 //= require rails.validations.simple_form
 //= require bootstrap

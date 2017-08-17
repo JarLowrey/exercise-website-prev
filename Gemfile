@@ -17,6 +17,7 @@ gem 'rack-mini-profiler'
 
 #external libs
 gem 'jquery-rails'
+gem 'jquery-ui-rails'
 gem 'bootstrap-sass'
 
 gem 'canonical-rails', github: 'jumph4x/canonical-rails'
