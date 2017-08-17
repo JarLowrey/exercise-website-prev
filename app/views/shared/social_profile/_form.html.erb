@@ -1,10 +1,10 @@
-<%= f.input :website %>
+<% show_remove = true if not defined? show_remove or show_remove == nil %>
 
-<%= f.input :facebook %>
-<%= f.input :twitter %>
-<%= f.input :reddit %>
-<%= f.input :google_plus %>
+<div class="nested-fields" >
+    <%= f.input :name, input_html: { data: {autocomplete_source: Rails.application.config.valid_social_profiles } } %>
+    <%= f.input :url %>
 
-<%= f.input :instagram %>
-<%= f.input :youtube %>
-<%= f.input :pinterest %>
+    <% if show_remove %>
+        <%= link_to_remove_association "remove profile", f %>
+    <% end %>
+</div>

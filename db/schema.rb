@@ -118,14 +118,8 @@ ActiveRecord::Schema.define(version: 20170813173653) do
   end
 
   create_table "social_profiles", force: :cascade do |t|
-    t.string "website"
-    t.string "twitter"
-    t.string "pinterest"
-    t.string "reddit"
-    t.string "google_plus"
-    t.string "youtube"
-    t.string "facebook"
-    t.string "instagram"
+    t.string "name", null: false
+    t.string "url", null: false
     t.string "shareable_id"
     t.string "shareable_type"
     t.datetime "created_at", null: false

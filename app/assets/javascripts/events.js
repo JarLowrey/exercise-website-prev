@@ -1,5 +1,6 @@
 //= require address
 //= require workout
+//= require social_profiles
 
 
 //Place all the behaviors and hooks related to the matching controller here.

@@ -1,16 +1,5 @@
-let exercise_name_input = '.event_workouts_exercise_name input';
+//= require rails-coccon-handler
 
 $(document).ready(function () {
-    init_exercise_autocomplete();
-
-    $('#workout-fields').on('cocoon:after-insert', function (e, insertedItem) {
-        let new_search_input = insertedItem.find(exercise_name_input)
-        init_exercise_autocomplete(new_search_input);
-    });
+    init_coccon_autocomplete('#workout-fields', '.event_workouts_exercise_name input');
 });
-
-function init_exercise_autocomplete(input_el = $(exercise_name_input)) {
-    input_el.autocomplete({
-        source: input_el.data('autocomplete-source')
-    });
-}

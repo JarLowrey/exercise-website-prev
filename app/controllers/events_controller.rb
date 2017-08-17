@@ -23,7 +23,7 @@ class EventsController < ApplicationController
   def new
     @event = Event.new
     @address = @event.build_address
-    @social_profile = @event.build_social_profile
+    @social_profile = @event.social_profiles.build
     @workouts = @event.workouts.build
   end
 
@@ -118,7 +118,7 @@ class EventsController < ApplicationController
       params.require(:event)
         .permit(:name, :cost, :description, :start, 
           { address_attributes: [:address, :longitude, :latitude] },
-          { social_profile_attributes: [:website, :twitter, :pinterest, :reddit, :google_plus, :youtube, :facebook, :instagram] },
+          { social_profiles_attributes: [:id, :_destroy, :name, :url] },
           { workouts_attributes: [:id, :_destroy, :distance, :duration, :exercise_name] }
       )
     end

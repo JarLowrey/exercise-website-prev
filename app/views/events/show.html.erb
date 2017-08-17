@@ -40,7 +40,7 @@ end %>
 
 <p>Address: <%= @event.address.address %> </p>
 
-<%= render partial: 'shared/social_profile/show', locals: {profiles: @event.social_profile} %>
+<%= render partial: 'shared/social_profile/show', locals: {profiles: @event.social_profiles} %>
 
 <div id="map"></div>
 

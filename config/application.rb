@@ -17,5 +17,8 @@ module FitTogether
 
     
     config.autoload_paths << Rails.root.join('lib')
+
+    #custom global variables/config
+    config.valid_social_profiles = [ 'facebook', 'website', 'twitter', 'pinterest', 'reddit', 'google plus', 'youtube', 'instagram']
   end
 end

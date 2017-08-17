@@ -22,9 +22,8 @@ class Event < ApplicationRecord
     accepts_nested_attributes_for :address
 
     #Social Profile table
-    validates :social_profile, presence: true, associated: true
-    has_one :social_profile, as: :shareable
-    accepts_nested_attributes_for :social_profile
+    has_many :social_profiles, as: :shareable
+    accepts_nested_attributes_for :social_profiles, reject_if: :all_blank, allow_destroy: true
 
     self.primary_key = :id
     before_create :set_id

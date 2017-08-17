@@ -1,12 +1,4 @@
-<% if profiles %>
-    <p><%= profiles.website%></p>
 
-    <p><%= profiles.facebook%></p>
-    <p><%= profiles.twitter%></p>
-    <p><%= profiles.reddit%></p>
-    <p><%= profiles.google_plus%></p>
-
-    <p><%= profiles.instagram%></p>
-    <p><%= profiles.youtube%></p>
-    <p><%= profiles.pinterest%></p>
+<% for profile in profiles %>
+  <p> <%= profile.name %>:  <%= profile.url %></p>
 <% end %>
