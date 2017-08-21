@@ -3,7 +3,7 @@
 <div class="nested-fields" >
     <%= f.input :distance %>
     <%= f.input :duration %>
-    <%= f.input :exercise_name, input_html: { data: {autocomplete_source: search_for_named_exercises_path } } %>
+    <%= f.input :exercise_name, input_html: { class: "search_autocomplete", data: {autocomplete_source: search_for_named_exercises_path } } %>
     <% if show_remove %>
         <%= link_to_remove_association "remove workout", f %>
     <% end %>

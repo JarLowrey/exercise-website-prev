@@ -1,7 +1,7 @@
 <% show_remove = true if not defined? show_remove or show_remove == nil %>
 
 <div class="nested-fields" >
-    <%= f.input :name, input_html: { data: {autocomplete_source: Rails.application.config.valid_social_profiles } } %>
+    <%= f.input :name, input_html: { class: "search_autocomplete", data: {autocomplete_source: Rails.application.config.valid_social_profiles } } %>
     <%= f.input :url %>
 
     <% if show_remove %>
