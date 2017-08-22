@@ -16,10 +16,8 @@ class User < ApplicationRecord
   has_many :creator, dependent: :destroy
 
   has_one :address
-
-  @@genders = ["Not Telling", "Male", "Female"]
   
   def gender_txt
-    ["Not Telling", "Male", "Female"][self.gender]    
+    Rails.application.config.genders[self.gender]    
   end
 end
