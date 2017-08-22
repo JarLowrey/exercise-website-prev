@@ -11,6 +11,7 @@ class CreateExercises < ActiveRecord::Migration[5.1]
     end
 
     create_table :exercise_workouts do |t|
+      t.integer    :repetitions
       t.float      :distance
       t.time       :duration
       t.belongs_to :exercise

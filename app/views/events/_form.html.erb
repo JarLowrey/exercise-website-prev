@@ -14,7 +14,7 @@
   <h2>Social Profiles</h2>
 
   <div id="social-profile-fields">
-    <%= f.simple_fields_for :social_profiles, validate: true do |social_profile| %>
+    <%= f.simple_fields_for :social_profiles do |social_profile| %>
       <%= render partial: 'shared/social_profile/form', locals: {f: social_profile, show_remove: false} %>
     <% end %>
     <div><%= link_to_add_association 'add profile', f, :social_profiles, partial: 'shared/social_profile/form'%></div>
@@ -25,7 +25,7 @@
   <h2>Workouts</h2>
 
   <div id="workout-fields">
-    <%= f.simple_fields_for :workouts, validate: true do |workout| %>
+    <%= f.simple_fields_for :workouts do |workout| %>
       <%= render partial: 'shared/workout/form', locals: {f: workout, show_remove: false} %>
     <% end %>
     <div><%= link_to_add_association 'add workout', f, :workouts, partial: 'shared/workout/form'%></div>
