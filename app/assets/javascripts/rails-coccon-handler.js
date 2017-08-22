@@ -26,9 +26,17 @@ $(document).ready(function () {
 
 
 function init_coccon_autocomplete(wrapper_selector) {
-    //ensure auto-complete is added to all additional coccon-generated inputs
     $(wrapper_selector).on('cocoon:after-insert', function (e, insertedItem) {
+        //ensure auto-complete is added to all additional coccon-generated inputs
         let new_autocomplete_input = insertedItem.find(autocomplete_selecter)
         add_coccon_autocomplete(new_autocomplete_input);
+    });
+}
+
+
+function init_coccon_validation(wrapper_selector) {
+    //enable validation on all inserted input elements
+    $(wrapper_selector).on('cocoon:after-insert', function (e, insertedItem) {
+        insertedItem.find('input').enableClientSideValidations();
     });
 }

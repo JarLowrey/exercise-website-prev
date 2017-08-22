@@ -7,7 +7,7 @@
   <%= f.input :min_participants, input_html: { min: '0' } %>
   <%= f.input :max_participants, input_html: { min: '0' } %>
 
-  <%= f.simple_fields_for :address, validate: true do |address| %>
+  <%= f.simple_fields_for :address do |address| %>
     <%= render partial: 'shared/address/form', locals: {f: address} %>
   <% end %>
 
@@ -17,7 +17,7 @@
 
   <div id="social-profile-fields">
     <%= f.simple_fields_for :social_profiles do |social_profile| %>
-      <%= render partial: 'shared/social_profile/form', locals: {f: social_profile, show_remove: false} %>
+      <%= render partial: 'shared/social_profile/form', locals: {f: social_profile} %>
     <% end %>
     <div><%= link_to_add_association 'add profile', f, :social_profiles, partial: 'shared/social_profile/form'%></div>
   </div>
@@ -28,7 +28,7 @@
 
   <div id="workout-fields">
     <%= f.simple_fields_for :workouts do |workout| %>
-      <%= render partial: 'shared/workout/form', locals: {f: workout, show_remove: false} %>
+      <%= render partial: 'shared/workout/form', locals: {f: workout} %>
     <% end %>
     <div><%= link_to_add_association 'add workout', f, :workouts, partial: 'shared/workout/form'%></div>
   </div>

@@ -116,7 +116,10 @@ class EventsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_params
       params.require(:event)
-        .permit(:name, :cost, :description, :start, :min_participants, :max_participants,
+        .permit(:name, :description, 
+          :cost,
+          :start, 
+          :min_participants, :max_participants,
           { address_attributes: [:address, :longitude, :latitude] },
           { social_profiles_attributes: [:id, :_destroy, :name, :url] },
           { workouts_attributes: [:id, :_destroy, :distance, :duration, :exercise_name] }
