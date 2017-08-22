@@ -6,8 +6,8 @@ class CreateEvents < ActiveRecord::Migration[5.1]
       t.string  :name, null: false
       t.text  :description, null: false
 
-      t.integer :min_users
-      t.integer :max_users
+      t.integer :min_participants
+      t.integer :max_participants
 
       #timing
       t.datetime :start

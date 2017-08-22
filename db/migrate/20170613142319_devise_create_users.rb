@@ -2,6 +2,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.1]
   def change
     create_table :users do |t|
       #personal_details
+      t.integer :gender, default: 0
       t.integer :age
       t.decimal :weight, precision: 4, scale: 1
       t.decimal :height, precision: 4, scale: 2

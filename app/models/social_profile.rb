@@ -6,6 +6,11 @@ class SocialProfile < ApplicationRecord
 
 
   validate :all_present
+
+  def name=(str)
+    super(str.titleize)
+  end
+   
   
   private
 

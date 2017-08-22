@@ -1,5 +1,13 @@
+
 <%= f.input :first_name  %>
 <%= f.input :last_name  %>
 <%= f.input :age, required: false,input_html: { min: '0' }  %>
 <%= f.input :height, input_html: { min: '0', step: '.1' }  %>
 <%= f.input :weight, input_html: { min: '0', step: '.1' }  %>
+
+<%
+gender_collection = Rails.application.config.genders.each_with_index.map{ |gender_name,i| 
+    [gender_name,i]
+}
+%>
+<%= f.input :gender, collection: gender_collection, as: :radio_buttons  %>

@@ -1,9 +1,10 @@
 class Event < ApplicationRecord
     validates :name, presence: true, allow_blank: false
     validates :description, presence: true, allow_blank: false
+    validates :min_participants, presence: true, allow_blank: false, numericality: { greater_than_or_equal_to: 0 }    
+    validates :max_participants, presence: true, allow_blank: false, numericality: { greater_than_or_equal_to: :min_participants }    
     validates :start, presence: true
     validates_date :start, on_or_after: :today
-    validates :workouts, presence: true
     
     #user-event roles
     has_many :workers, dependent: :destroy
@@ -13,7 +14,10 @@ class Event < ApplicationRecord
 
     #other data
     has_one :cost
+
+    #Workouts
     has_many :workouts, class_name: "Exercise::Workout"
+    validates :workouts, presence: true
     accepts_nested_attributes_for :workouts, reject_if: :all_blank, allow_destroy: true
     
     #Address table

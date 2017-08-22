@@ -52,6 +52,8 @@ events = []
 event1 = Event.create!( 
     name: "Test", 
     description: "Testing event in DB", 
+    min_participants: 1,
+    max_participants: 5,
     start: DateTime.now,
     address: Address.create!(address: "Columbus OH USA", latitude: 1, longitude: 1),
     social_profiles: [ SocialProfile.create!(name: "facebook", url: "http:asdas") ], 

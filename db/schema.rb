@@ -76,8 +76,8 @@ ActiveRecord::Schema.define(version: 20170813173653) do
     t.string "id", null: false
     t.string "name", null: false
     t.text "description", null: false
-    t.integer "min_users"
-    t.integer "max_users"
+    t.integer "min_participants"
+    t.integer "max_participants"
     t.datetime "start"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -92,6 +92,7 @@ ActiveRecord::Schema.define(version: 20170813173653) do
   end
 
   create_table "exercise_workouts", force: :cascade do |t|
+    t.integer "repetitions"
     t.float "distance"
     t.time "duration"
     t.integer "exercise_id"
@@ -129,6 +130,7 @@ ActiveRecord::Schema.define(version: 20170813173653) do
   end
 
   create_table "users", force: :cascade do |t|
+    t.integer "gender", default: 0
     t.integer "age"
     t.decimal "weight", precision: 4, scale: 1
     t.decimal "height", precision: 4, scale: 2

@@ -2,7 +2,8 @@ class User < ApplicationRecord
   validates :first_name, presence: true, allow_blank: false
   validates :last_name, presence: true, allow_blank: false
   validates :age, numericality: { only_integer:true, greater_than: 0 }, allow_nil: true
-
+  validates :gender, inclusion: { in: 0..2 }  , allow_nil: true
+  
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -15,5 +16,10 @@ class User < ApplicationRecord
   has_many :creator, dependent: :destroy
 
   has_one :address
+
+  @@genders = ["Not Telling", "Male", "Female"]
   
+  def gender_txt
+    ["Not Telling", "Male", "Female"][self.gender]    
+  end
 end
