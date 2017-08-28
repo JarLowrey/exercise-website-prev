@@ -1,20 +1,14 @@
 var autocomplete;
 var lat;
 var lng;
-var submit;
 
 document.addEventListener("DOMContentLoaded", initialize_address);
 
 
 function initialize_address() {
-    submit = document.querySelectorAll("input[type=submit]")[0];
     lat = get_latitude_input();
     lng = get_longitude_input();
     let addr = get_address_input();
-
-    if (submit) {
-        set_submittable(false); //disable submission until address is entered
-    }
 
     //init autocomplete
     if (addr) {
@@ -24,10 +18,6 @@ function initialize_address() {
                 return false;
             }
         }
-        //if user changes address, mark that it does not match lat,lng
-        addr.addEventListener('input', function (evt) {
-            set_submittable(false);
-        });
 
         //initialize google autocomplete
         autocomplete = new google.maps.places.Autocomplete(addr);
@@ -38,9 +28,9 @@ function initialize_address() {
                 let place = autocomplete.getPlace();
                 lat.value = place.geometry.location.lat();
                 lng.value = place.geometry.location.lng();
-                set_submittable(true);
-            } catch (e) {
-                set_submittable(false);
+            } catch (e) { //a place was not selected
+                lat.value = "";
+                lng.value = "";
             }
         });
     }
@@ -69,8 +59,4 @@ function get_latitude_input() {
     for (input of inputs) {
         if (input.id.includes("latitude")) return input
     }
-}
-
-function set_submittable(is_submittable) {
-    submit.disabled = !is_submittable;
 }
