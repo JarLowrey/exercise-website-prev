@@ -3,15 +3,19 @@ var autocomplete_selecter = ".search_autocomplete";
 
 
 function add_coccon_autocomplete(input_el) {
-    input_el.autocomplete({
+    input_el.autocomplete({ // API: http://api.jqueryui.com/autocomplete/
         source: input_el.data('autocomplete-source'),
         autoFocus: true,
         minLength: 0,
+        select: function (evt, ui) { //ensure client-side validation is triggered when autocomplete value is selected
+            $(this).val(ui.item.value);
+            $(this).change().focusout();
+        },
         messages: {
             noResults: '',
-            results: function() {}
+            results: function () { }
         }
-    }).focus(function () {
+    }).focus(function () { //ensure options appear when user focuses on input
         $(this).autocomplete('search', $(this).val())
     });
 }
