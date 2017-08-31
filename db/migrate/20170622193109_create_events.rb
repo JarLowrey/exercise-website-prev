@@ -10,7 +10,7 @@ class CreateEvents < ActiveRecord::Migration[5.1]
       t.integer :max_participants
 
       #timing
-      t.datetime :start
+      t.datetime :start, null: false, index: true
 
       t.timestamps
     end

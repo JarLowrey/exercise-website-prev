@@ -122,10 +122,11 @@ class EventsController < ApplicationController
         event_search_params[:start_time] || DateTime.now,
         )
       .select(:id,:name,:latitude,:longitude,:start)
+      .limit(50) # arbitrary limit, just so things don't get drowned out/too full on the map
 
     render json: local_events    
   end
-  
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_event
