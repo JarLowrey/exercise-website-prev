@@ -10,8 +10,6 @@ var map;
 var placeService;
 var geocoder;
 var markers = {};
-var marker;
-var markerPos = null;
 var search_timer = null;
 var wait_after_map_bounds_change_before_searching_db = 800;
 
@@ -38,7 +36,7 @@ function search_events() {
         data: {
             ne_lng: map.getBounds().getNorthEast().lng(),
             ne_lat: map.getBounds().getNorthEast().lat(),
-
+            
             sw_lng: map.getBounds().getSouthWest().lng(),
             sw_lat: map.getBounds().getSouthWest().lat()
         },
