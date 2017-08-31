@@ -9,8 +9,11 @@ Rails.application.routes.draw do
     member do
       put :add_or_rm_role
     end
+    collection do
+      get :search
+    end
   end
-  get "/events/:id/*other" => "events#show" #if any txt is trailing id, also send this route to events#show
+  get "/events/:id/*other" => "events#show" #if any txt is trailing id, send this route to events#show
   
   #alias the "events" routes
   match '/e/*other',

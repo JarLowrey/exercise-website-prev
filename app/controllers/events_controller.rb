@@ -105,7 +105,27 @@ class EventsController < ApplicationController
     redirect_to event, notice: msg
   end
 
+  def search
+    #check for required params before searching
+    all_keys_present = event_search_params.has_key?(:sw_lat) and
+      event_search_params.has_key?(:ne_lat) and
+      event_search_params.has_key?(:sw_lng) and
+      event_search_params.has_key?(:ne_lng) 
+    if not all_keys_present
+      return
+    end
+    
+    #search database for local events using given params
+    local_events = Event.joins(:address)
+      .where("latitude >= ? AND latitude <= ? AND longitude >= ? AND longitude <= ? AND start > ?",       
+        event_search_params[:sw_lat], event_search_params[:ne_lat], event_search_params[:sw_lng], event_search_params[:ne_lng],
+        event_search_params[:start_time] || DateTime.now,
+        )
+      .select(:id,:name,:latitude,:longitude,:start)
 
+    render json: local_events    
+  end
+  
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_event
@@ -128,5 +148,9 @@ class EventsController < ApplicationController
 
     def event_role_params
       params.permit(:id, :role, :is_add, :user_id)
+    end
+
+    def event_search_params
+      params.permit(:ne_lat, :ne_lng, :sw_lat, :sw_lng, :start_time)      
     end
 end
