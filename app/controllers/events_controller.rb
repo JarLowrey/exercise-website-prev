@@ -117,10 +117,11 @@ class EventsController < ApplicationController
     
     #search database for local events using given params
     local_events = Event.joins(:address)
-      .where("latitude >= ? AND latitude <= ? AND longitude >= ? AND longitude <= ? AND start > ?",       
-        event_search_params[:sw_lat], event_search_params[:ne_lat], event_search_params[:sw_lng], event_search_params[:ne_lng],
-        event_search_params[:start_time] || DateTime.now,
-        )
+      .where("latitude >= ? AND latitude <= ? AND longitude >= ? AND longitude <= ? AND 
+        start >= ? AND start <= ?",       
+          event_search_params[:sw_lat], event_search_params[:ne_lat], event_search_params[:sw_lng], event_search_params[:ne_lng],
+          event_search_params[:start_time] || DateTime.now, event_search_params[:end_time] || (DateTime.now + 365 *2),
+          )
       .select(:id,:name,:latitude,:longitude,:start)
       .limit(50) # arbitrary limit, just so things don't get drowned out/too full on the map
 
@@ -152,6 +153,6 @@ class EventsController < ApplicationController
     end
 
     def event_search_params
-      params.permit(:ne_lat, :ne_lng, :sw_lat, :sw_lng, :start_time)      
+      params.permit(:ne_lat, :ne_lng, :sw_lat, :sw_lng, :start_time, :end_time)      
     end
 end
