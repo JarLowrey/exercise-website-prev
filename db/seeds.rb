@@ -57,7 +57,7 @@ event1 = Event.create!(
     start: DateTime.now + 500,
     address: Address.create!(address: "Columbus OH USA", latitude: 39.9612, longitude: -82.9988),
     social_profiles: [ SocialProfile.create!(name: "facebook", url: "http://facebook.com") ], 
-    workouts: [ Exercise::Workout.create!(exercise_id: run.id, distance: 2) ]
+    exercise_instances: [ Exercise::Instance.create!(exercise_id: run.id, distance: 2) ]
 )
 Event::Participant.create! event: event1, user: user1
 Event::Creator.create! event: event1, user: user1

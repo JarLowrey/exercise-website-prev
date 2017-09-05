@@ -15,17 +15,17 @@ class Event < ApplicationRecord
     #other data
     has_one :cost
 
-    #Workouts
-    has_many :workouts, class_name: "Exercise::Workout"
-    validates :workouts, presence: true
-    accepts_nested_attributes_for :workouts, reject_if: :all_blank, allow_destroy: true
+    #exercise_instances
+    has_many :exercise_instances, class_name: "Exercise::Instance"
+    validates :exercise_instances, presence: true
+    accepts_nested_attributes_for :exercise_instances, reject_if: :all_blank, allow_destroy: true
     
-    #Address table
+    #Address
     validates :address, presence: true, associated: true
     has_one :address, as: :addressable
     accepts_nested_attributes_for :address
 
-    #Social Profile table
+    #Social Profile
     has_many :social_profiles, as: :shareable
     accepts_nested_attributes_for :social_profiles, reject_if: :all_blank, allow_destroy: true
 

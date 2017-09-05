@@ -78,10 +78,20 @@ ActiveRecord::Schema.define(version: 20170813173653) do
     t.text "description", null: false
     t.integer "min_participants"
     t.integer "max_participants"
-    t.datetime "start"
+    t.datetime "start", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["id"], name: "index_events_on_id"
+    t.index ["start"], name: "index_events_on_start"
+  end
+
+  create_table "exercise_instances", force: :cascade do |t|
+    t.integer "repetitions"
+    t.float "distance"
+    t.time "duration"
+    t.integer "exercise_id"
+    t.string "event_id"
+    t.index ["exercise_id"], name: "index_exercise_instances_on_exercise_id"
   end
 
   create_table "exercise_names", force: :cascade do |t|
@@ -89,15 +99,6 @@ ActiveRecord::Schema.define(version: 20170813173653) do
     t.integer "exercise_id"
     t.index ["exercise_id"], name: "index_exercise_names_on_exercise_id"
     t.index ["name"], name: "index_exercise_names_on_name"
-  end
-
-  create_table "exercise_workouts", force: :cascade do |t|
-    t.integer "repetitions"
-    t.float "distance"
-    t.time "duration"
-    t.integer "exercise_id"
-    t.string "event_id"
-    t.index ["exercise_id"], name: "index_exercise_workouts_on_exercise_id"
   end
 
   create_table "exercises", force: :cascade do |t|

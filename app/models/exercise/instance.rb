@@ -1,4 +1,4 @@
-class Exercise::Workout < ApplicationRecord
+class Exercise::Instance < ApplicationRecord
     belongs_to :exercise, optional: true
     belongs_to :event, optional: true
     validates :exercise_name, presence: true, allow_blank: false

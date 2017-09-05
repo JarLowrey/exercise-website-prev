@@ -24,13 +24,13 @@
 
 
 
-  <h2>Workouts</h2>
+  <h2>Workout</h2>
 
   <div id="workout-fields">
-    <%= f.simple_fields_for :workouts do |workout| %>
-      <%= render partial: 'shared/workout/form', locals: {f: workout} %>
+    <%= f.simple_fields_for :exercise_instances do |ex_inst| %>
+      <%= render partial: 'shared/exercise_instance/form', locals: {f: ex_inst} %>
     <% end %>
-    <div><%= link_to_add_association 'add workout', f, :workouts, partial: 'shared/workout/form'%></div>
+    <div><%= link_to_add_association 'add exercise', f, :exercise_instances, partial: 'shared/exercise_instance/form'%></div>
   </div>
   
 

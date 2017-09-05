@@ -24,7 +24,7 @@ class EventsController < ApplicationController
     @event = Event.new
     @address = @event.build_address
     @social_profile = @event.social_profiles.build
-    @workouts = @event.workouts.build
+    @exercise_instances = @event.exercise_instances.build
   end
 
   # GET /events/1/edit
@@ -144,7 +144,7 @@ class EventsController < ApplicationController
           :min_participants, :max_participants,
           { address_attributes: [:address, :longitude, :latitude] },
           { social_profiles_attributes: [:id, :_destroy, :name, :url] },
-          { workouts_attributes: [:id, :_destroy, :distance, :duration, :exercise_name] }
+          { exercise_instances_attributes: [:id, :_destroy, :distance, :duration, :exercise_name] }
       )
     end
 

@@ -1,5 +1,5 @@
 //= require address
-//= require workout
+//= require exercise_instances
 //= require social_profiles
 
 
