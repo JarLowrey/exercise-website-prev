@@ -1,6 +1,6 @@
 # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 Rails.application.routes.draw do  
-  
+
   resources :exercises do
     collection do
       get :search_for_named
@@ -25,7 +25,7 @@ Rails.application.routes.draw do
       req.original_url.sub('/e','/events')
     }
 
-
+  resources :users, only: [:show]    
   devise_for :users, controllers: { 
     sessions: 'users/sessions', 
     registrations: "users/registrations", 
@@ -34,6 +34,7 @@ Rails.application.routes.draw do
     passwords: "user/passwords", 
     unlocks: "user/unlocks" 
   }
+  
   
   root to: "pages#index"
   get ":page" => "pages#show" 

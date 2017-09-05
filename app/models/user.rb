@@ -20,4 +20,8 @@ class User < ApplicationRecord
   def gender_txt
     Rails.application.config.genders[self.gender]    
   end
+
+  def name
+    "#{first_name} #{last_name}"
+  end
 end

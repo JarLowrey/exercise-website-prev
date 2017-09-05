@@ -11,18 +11,23 @@ num_participants = @event.participants.count
 markerPos = new google.maps.LatLng(<%= @event.address.latitude %>,<%= @event.address.longitude %>);
 </script>
 
+
+<h2>
+Participants: 
+</h2>
+
 <p><%= pluralize(num_participants,'person') %> going to this event </p>
 
-Participants: 
+<p>
+
 <% for participant in @event.participants %>
-  <%= participant.user.attributes %>
+  <%= link_to participant.user.name, user_path(participant.user) %>
 <% end %>
+</p>
 
-<br/>
-Creator
-<%= @event.creator.user.attributes %>
-
-<% if user_signed_in? 
+<p>
+<% 
+if user_signed_in? 
     if @current_user_is_participating %>
         <%= link_to "Remove myself from event", 
             add_or_rm_role_event_path(role: Event::Participant.event_role_types[:participant], is_add: false),
@@ -32,7 +37,15 @@ Creator
             add_or_rm_role_event_path(role: Event::Participant.event_role_types[:participant], is_add: true),
             method: :put, remote: true %>
     <%  end
-end %>
+end 
+%>
+</p>
+
+
+<p>
+Creator
+<%= link_to @event.creator.user.name, user_path(participant.user) %>
+</p>
 
 <%= 
 #Event.reflect_on_all_associations.map{|x| x.class_name}.compact
