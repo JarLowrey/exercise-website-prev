@@ -22,6 +22,13 @@ Participants:
 
 <% for participant in @event.participants %>
   <%= link_to participant.user.name, user_path(participant.user) %>
+  <!-- Not right action, rm_role only adds/removes current user
+  <% if current_user == @event.creator.user %>
+    <%= link_to "X", 
+        rm_role_event_path(role: Event::Participant.event_role_types[:participant]),
+        method: :put, remote: true %>
+  <% end %>
+  -->
 <% end %>
 </p>
 
@@ -29,12 +36,12 @@ Participants:
 <% 
 if user_signed_in? 
     if @current_user_is_participating %>
-        <%= link_to "Remove myself from event", 
-            add_or_rm_role_event_path(role: Event::Participant.event_role_types[:participant], is_add: false),
+        <%= link_to "Drop out", 
+            rm_role_event_path(role: Event::Participant.event_role_types[:participant]),
             method: :put, remote: true %>
     <% else %>
-        <%= link_to "Sign Up For Event", 
-            add_or_rm_role_event_path(role: Event::Participant.event_role_types[:participant], is_add: true),
+        <%= link_to "Sign Up", 
+            add_role_event_path(role: Event::Participant.event_role_types[:participant]),
             method: :put, remote: true %>
     <%  end
 end 
@@ -44,7 +51,7 @@ end
 
 <p>
 Creator
-<%= link_to @event.creator.user.name, user_path(participant.user) %>
+<%= link_to @event.creator.user.name, user_path(@event.creator.user) %>
 </p>
 
 <%= 

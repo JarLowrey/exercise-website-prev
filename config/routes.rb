@@ -9,7 +9,8 @@ Rails.application.routes.draw do
 
   resources :events do
     member do
-      put :add_or_rm_role
+      put :add_role
+      put :rm_role
     end
     collection do
       get :search

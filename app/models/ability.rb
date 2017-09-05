@@ -17,7 +17,10 @@ class Ability
     can :search, Event
 
     #event roles
-    can [:manage], Event::Participant, user_id: user.id #can edit own role in event
+    can :rm_role, Event, participants: { user_id: user.id } #can edit own role in event
+    #can :rm_role, Event, creator: { user_id: user.id } #creator can remove people their event
+    can :add_role, Event
+    
 =begin
     can :read, event_role_tables
     can :write, event_role_tables do |role|

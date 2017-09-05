@@ -74,33 +74,21 @@ class EventsController < ApplicationController
     end
   end
 
-  def add_or_rm_role
-    event = Event.find(event_role_params[:id])
 
-    #choose which model needs to be modified
-    model = nil
-    roles = Event::Participant.event_role_types
-    case event_role_params[:role]
-      when String(roles[:admin])
-        model = Event::Admin
-      when String(roles[:creator])
-        model = Event::Creator
-      when String(roles[:worker])
-        model = Event::Worker
-      when String(roles[:participant])
-        model = Event::Participant
-    end
-    
-    #add/remove the event/user role
-    msg=""
-    usr_id = current_user.id
-    if ActiveModel::Type::Boolean.new.cast(event_role_params[:is_add])
-      model.create(event_id: event.id, user_id: usr_id)
-      msg = "You are now participating!"
-    else
-      model.find_by(event_id: event.id, user_id: usr_id).destroy
-      msg = "You are no longer participating."
-    end
+  def rm_role
+    event = Event.find(event_role_params[:id])    
+    model = select_role_model(event_role_params[:role])    
+    model.find_by(event_id: event.id, user_id: current_user.id).destroy
+    msg = "You are no longer participating."
+
+    redirect_to event, notice: msg    
+  end
+
+  def add_role
+    event = Event.find(event_role_params[:id])
+    model = select_role_model(event_role_params[:role])
+    model.create(event_id: event.id, user_id: current_user.id)
+    msg = "You are now participating!"
 
     redirect_to event, notice: msg
   end
@@ -129,30 +117,45 @@ class EventsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_event
-      @event = Event.find(params[:id])
-      @current_user_is_participating = @event.participants.find_by(user_id: current_user.id) != nil if user_signed_in?
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def event_params
-      params.require(:event)
-        .permit(:name, :description, 
-          :cost,
-          :start, 
-          :min_participants, :max_participants,
-          { address_attributes: [:address, :longitude, :latitude] },
-          { social_profiles_attributes: [:id, :_destroy, :name, :url] },
-          { exercise_instances_attributes: [:id, :_destroy, :distance, :duration, :exercise_name] }
-      )
+  def select_role_model(role)
+    roles = Event::Participant.event_role_types
+    case role
+      when String(roles[:admin])
+        model = Event::Admin
+      when String(roles[:creator])
+        model = Event::Creator
+      when String(roles[:worker])
+        model = Event::Worker
+      when String(roles[:participant])
+        model = Event::Participant
     end
+  end
 
-    def event_role_params
-      params.permit(:id, :role, :is_add, :user_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_event
+    @event = Event.find(params[:id])
+    @current_user_is_participating = @event.participants.find_by(user_id: current_user.id) != nil if user_signed_in?
+  end
 
-    def event_search_params
-      params.permit(:ne_lat, :ne_lng, :sw_lat, :sw_lng, :start_time, :end_time)      
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def event_params
+    params.require(:event)
+      .permit(:name, :description, 
+        :cost,
+        :start, 
+        :min_participants, :max_participants,
+        { address_attributes: [:address, :longitude, :latitude] },
+        { social_profiles_attributes: [:id, :_destroy, :name, :url] },
+        { exercise_instances_attributes: [:id, :_destroy, :distance, :duration, :exercise_name] }
+    )
+  end
+
+  def event_role_params
+    params.permit(:id, :role, :user_id)
+  end
+
+  def event_search_params
+    params.permit(:ne_lat, :ne_lng, :sw_lat, :sw_lng, :start_time, :end_time)      
+  end
 end
