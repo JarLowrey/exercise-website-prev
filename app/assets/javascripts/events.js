@@ -22,10 +22,30 @@ function placeEventMarker(event) {
     }
 
     //create a new marker at the given position
-    markers[event.id] = new google.maps.Marker({
-        position: { lat: event.latitude, lng: event.longitude },
-        map: map
+    let marker = new google.maps.Marker({
+        position: new google.maps.LatLng(event.latitude, event.longitude),
+        //icon: event.icon_url,
+        map: map,
+        title: event.name //appears as a tool-tip
     });
+
+    //create the popup that is shown when the user clicks this marker
+    let infowindow = new google.maps.InfoWindow({
+        content:
+        '<div>' +
+        '<h2>'+event.name+'</h2>'+
+        '<time>' + new Date(event.start) + '</time>' +
+        '<p>' + event.street_addr + '</p>' +
+        '</div>'
+    });
+
+    //open infowindow when marker is clicked
+    marker.addListener('click', () => {
+        infowindow.open(map, marker);
+    });
+
+    //save marker to hash so it is not re-added to map
+    markers[event.id] = marker;
 }
 
 function search_events() {
@@ -36,7 +56,7 @@ function search_events() {
         data: {
             ne_lng: map.getBounds().getNorthEast().lng(),
             ne_lat: map.getBounds().getNorthEast().lat(),
-            
+
             sw_lng: map.getBounds().getSouthWest().lng(),
             sw_lat: map.getBounds().getSouthWest().lat()
         },
@@ -72,17 +92,17 @@ async function initialize_events() {
                     stylers: [{ visibility: "off" }]
                 },
                 {
-                  featureType: 'transit',
-                  elementType: 'labels.icon',
-                  stylers: [{visibility: 'off'}]
-                }                
+                    featureType: 'transit',
+                    elementType: 'labels.icon',
+                    stylers: [{ visibility: 'off' }]
+                }
             ]
         });
+
+        google.maps.event.addListener(map, "bounds_changed", reset_search_timeout);
     }
 
     geocoder = new google.maps.Geocoder();
-
-    google.maps.event.addListener(map, "bounds_changed", reset_search_timeout);
 }
 
 

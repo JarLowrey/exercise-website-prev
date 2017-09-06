@@ -21,7 +21,7 @@ ExerciseType.create! name: "Rugby", icon_url: "icons8-Rugby-48.png", verified: t
 ExerciseType.create! name: "Frisbee", icon_url: "icons8-Frisbee-48.png", verified: true
 =end
 
-run = Exercise.create! description: "Running around"
+run = Exercise.create! description: "Running around", icon_url: "icons8-Running-48.png"
 run_names = [ 
     Exercise::Name.create!(name: "Run", exercise: run),
     Exercise::Name.create!(name: "Ran", exercise: run),
@@ -31,7 +31,7 @@ run_names = [
 run.exercise_names.push(run_names)
 run.preferred_exercise_name = run_names[0]
 
-swim = Exercise.create! description: "this one sucks"
+swim = Exercise.create! description: "this one sucks", icon_url: "icons8-Swimming-48.png"
 swim_names = [ 
     Exercise::Name.create!(name: "Swim", exercise: swim),
     Exercise::Name.create!(name: "Swam", exercise: swim),
@@ -54,10 +54,10 @@ event1 = Event.create!(
     description: "Testing event in DB", 
     min_participants: 1,
     max_participants: 5,
-    start: DateTime.now + 500,
-    address: Address.create!(address: "Columbus OH USA", latitude: 39.9612, longitude: -82.9988),
+    start: DateTime.now + 10,
+    address: Address.create!(street_addr: "Columbus OH USA", latitude: 39.9612, longitude: -82.9988),
     social_profiles: [ SocialProfile.create!(name: "facebook", url: "http://facebook.com") ], 
-    exercise_instances: [ Exercise::Instance.create!(exercise_id: run.id, distance: 2) ]
+    exercise_instances: [ Exercise::Instance.create!(exercise_id: run.id, distance: 2), Exercise::Instance.create!(exercise_id: swim.id, distance: 2) ]
 )
 Event::Participant.create! event: event1, user: user1
 Event::Creator.create! event: event1, user: user1

@@ -13,7 +13,7 @@
 ActiveRecord::Schema.define(version: 20170813173653) do
 
   create_table "addresses", force: :cascade do |t|
-    t.string "address"
+    t.string "street_addr", null: false
     t.decimal "latitude", precision: 10, scale: 6, null: false
     t.decimal "longitude", precision: 10, scale: 6, null: false
     t.string "addressable_id"

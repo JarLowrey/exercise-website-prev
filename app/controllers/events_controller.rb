@@ -10,7 +10,7 @@ class EventsController < ApplicationController
 
   # GET /events/1
   # GET /events/1.json
-  def show
+  def show    
     #redirect to a readable URL
     readable_txt = @event.name.parameterize
     if ShortenableUrls.redirect_for_readability?(request, @event.id, readable_txt)
@@ -75,7 +75,7 @@ class EventsController < ApplicationController
   end
 
 
-  def rm_role
+  def rm_role    
     event = Event.find(event_role_params[:id])    
     model = select_role_model(event_role_params[:role])    
     model.find_by(event_id: event.id, user_id: current_user.id).destroy
@@ -104,16 +104,15 @@ class EventsController < ApplicationController
     end
     
     #search database for local events using given params
-    local_events = Event.joins(:address)
+    local_events = Event.includes(:address).references(:address)
       .where("latitude >= ? AND latitude <= ? AND longitude >= ? AND longitude <= ? AND 
         start >= ? AND start <= ?",       
           event_search_params[:sw_lat], event_search_params[:ne_lat], event_search_params[:sw_lng], event_search_params[:ne_lng],
-          event_search_params[:start_time] || DateTime.now, event_search_params[:end_time] || (DateTime.now + 365 *2),
+          event_search_params[:start_time] || DateTime.now, event_search_params[:end_time] || (DateTime.now + 365),
           )
-      .select(:id,:name,:latitude,:longitude,:start)
       .limit(50) # arbitrary limit, just so things don't get drowned out/too full on the map
-
-    render json: local_events    
+    
+    render json: local_events, only: [:id,:name,:start], include: [exercise_instances: {include: :exercise}, address: { only: [:latitude,:longitude,:street_addr] }]
   end
 
   private

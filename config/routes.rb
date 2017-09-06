@@ -26,7 +26,6 @@ Rails.application.routes.draw do
       req.original_url.sub('/e','/events')
     }
 
-  resources :users, only: [:show]    
   devise_for :users, controllers: { 
     sessions: 'users/sessions', 
     registrations: "users/registrations", 
@@ -35,6 +34,7 @@ Rails.application.routes.draw do
     passwords: "user/passwords", 
     unlocks: "user/unlocks" 
   }
+  resources :users, only: [:show]    
   
   
   root to: "pages#index"

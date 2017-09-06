@@ -1,10 +1,14 @@
 class Event < ApplicationRecord
+    self.primary_key = :id
+    before_create :set_id
+
     validates :name, presence: true, allow_blank: false
     validates :description, presence: true, allow_blank: false
     validates :min_participants, presence: true, allow_blank: false, numericality: { greater_than_or_equal_to: 0 }    
     validates :max_participants, presence: true, allow_blank: false, numericality: { greater_than_or_equal_to: :min_participants }    
     validates :start, presence: true
-    validates_date :start, on_or_after: :today
+    validate  :start_is_in_future
+    
     
     #user-event roles
     has_many :workers, dependent: :destroy
@@ -29,11 +33,14 @@ class Event < ApplicationRecord
     has_many :social_profiles, as: :shareable
     accepts_nested_attributes_for :social_profiles, reject_if: :all_blank, allow_destroy: true
 
-    self.primary_key = :id
-    before_create :set_id
-
     private
-        def set_id
-            self.id = ShortIds.new(Event)
+    def set_id
+        self.id = ShortIds.new(Event)
+    end
+
+    def start_is_in_future
+        if start <= Time.now
+            errors.add(:start, "Must be in the future")
         end
+    end
 end
