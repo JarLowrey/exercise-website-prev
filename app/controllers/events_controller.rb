@@ -112,7 +112,7 @@ class EventsController < ApplicationController
           )
       .limit(50) # arbitrary limit, just so things don't get drowned out/too full on the map
     
-    render json: local_events, only: [:id,:name,:start], include: [exercise_instances: {include: :exercise}, address: { only: [:latitude,:longitude,:street_addr] }]
+    render json: local_events, only: [:id,:name,:start], include: { address: { only: [:latitude,:longitude,:street_addr] },  exercise_instances: {include: :exercise}}
   end
 
   private

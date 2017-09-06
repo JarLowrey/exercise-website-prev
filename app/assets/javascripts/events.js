@@ -23,7 +23,7 @@ function placeEventMarker(event) {
 
     //create a new marker at the given position
     let marker = new google.maps.Marker({
-        position: new google.maps.LatLng(event.latitude, event.longitude),
+        position: new google.maps.LatLng(event.address.latitude, event.address.longitude),
         //icon: event.icon_url,
         map: map,
         title: event.name //appears as a tool-tip
@@ -35,7 +35,7 @@ function placeEventMarker(event) {
         '<div>' +
         '<h2>'+event.name+'</h2>'+
         '<time>' + new Date(event.start) + '</time>' +
-        '<p>' + event.street_addr + '</p>' +
+        '<p>' + event.address.street_addr + '</p>' +
         '</div>'
     });
 
