@@ -5,32 +5,32 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
+#payment processing
+gem 'stripe'
+
+#logging+profiling
+gem 'rack-mini-profiler'
+
+#deployment
+gem 'sekrets' #encrypt API keys to allow upload to VCS - https://stuff-things.net/2016/01/13/the-sekrets-gem/
+
+#front-end external libraries
+gem 'jquery-rails'
+gem 'jquery-ui-rails'
+gem 'bootstrap-sass'
+gem 'canonical-rails', github: 'jumph4x/canonical-rails'
 #form helpers
 gem 'simple_form'
 gem 'client_side_validations'
 gem 'client_side_validations-simple_form'
-#gem 'acts-as-taggable-on', '~> 5.0'
-gem "cocoon"
-gem "validates_timeliness"
-gem 'nested_scaffold'
-gem 'rack-mini-profiler'
-
-#external libs
-gem 'jquery-rails'
-gem 'jquery-ui-rails'
-gem 'bootstrap-sass'
-
-gem 'canonical-rails', github: 'jumph4x/canonical-rails'
+gem 'cocoon'
 
 #recurring events and datetime
 #gem 'simple_calendar'
 #gem 'ice_cube'
 
 #location queries
-gem 'geocoder'
-
-#money conversions/saving
-gem 'money-rails'
+gem 'geocoder' #is this needed/being used?
 
 #authentication and authoization
 gem 'devise'

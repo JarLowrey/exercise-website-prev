@@ -37,6 +37,6 @@ Rails.application.routes.draw do
   resources :users, only: [:show]    
   
   
-  root to: "pages#index"
+  root to: "events#index"
   get ":page" => "pages#show" 
 end
