@@ -18,6 +18,9 @@ Rails.application.routes.draw do
   end
   get "/events/:id/*other" => "events#show" #if any txt is trailing id, send this route to events#show
   
+  #stripe payment
+  resources :charges, only: [:new, :create]
+
   #alias the "events" routes
   match '/e/*other',
     via: :all, 

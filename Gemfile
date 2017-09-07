@@ -12,7 +12,7 @@ gem 'stripe'
 gem 'rack-mini-profiler'
 
 #deployment
-gem 'sekrets' #encrypt API keys to allow upload to VCS - https://stuff-things.net/2016/01/13/the-sekrets-gem/
+gem 'sekrets' #encrypt API keys - edit via `sekrets edit config/sekrets.yml.enc`` - https://stuff-things.net/2016/01/13/the-sekrets-gem/
 
 #front-end external libraries
 gem 'jquery-rails'
