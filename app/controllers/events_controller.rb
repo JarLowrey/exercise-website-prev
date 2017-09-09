@@ -5,7 +5,6 @@ class EventsController < ApplicationController
   # GET /events
   # GET /events.json
   def index
-    byebug
     @events = Event.all
   end
 
