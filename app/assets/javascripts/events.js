@@ -33,9 +33,10 @@ function placeEventMarker(event) {
     let infowindow = new google.maps.InfoWindow({
         content:
         '<div>' +
-        '<h2>'+event.name+'</h2>'+
+        '<h2>' + event.name + '</h2>' +
         '<time>' + new Date(event.start) + '</time>' +
         '<p>' + event.address.street_address + '</p>' +
+        '<p> <a href="/events/' + event.id + '"> See full event info</a> </p>' +
         '</div>'
     });
 
@@ -99,7 +100,14 @@ async function initialize_events() {
             ]
         });
 
+        //add maps listeners
         google.maps.event.addListener(map, "bounds_changed", reset_search_timeout);
+
+        //add maps controls
+        var mapSearchDiv = document.createElement('div');
+        var mapSearch = new MapSearchControl(mapSearchDiv, map);
+        mapSearchDiv.index = 10000;
+        map.controls[google.maps.ControlPosition.TOP_CENTER].push(mapSearchDiv);
     }
 
     geocoder = new google.maps.Geocoder();
@@ -134,4 +142,34 @@ async function get_current_pos() {
             resolve(not_found);
         }
     });
+}
+
+// Example: https://developers.google.com/maps/documentation/javascript/examples/control-custom
+function MapSearchControl(controlDiv, map) {
+    // Set CSS for the control border.
+    var controlUI = document.createElement('div');
+    controlUI.style.backgroundColor = '#fff';
+    controlUI.style.borderRadius = '3px';
+    controlUI.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
+    controlUI.title = 'Click to change search parameters';
+    controlDiv.appendChild(controlUI);
+
+    //Set CSS for control image
+    var controlImage = document.createElement('img');
+    controlImage.style.padding = '5px';
+    controlImage.style.height = '30px';
+    controlImage.src = '/assets/icons_general/search.png';
+    controlUI.appendChild(controlImage);
+
+    var controlForm = document.createElement('div');
+    controlForm.style.display = 'none';
+    controlImage.innerHTML = 'form with all search params';
+    controlUI.appendChild(controlForm);
+    
+
+    // Setup the click event listeners
+    controlUI.addEventListener('click', function() {
+        controlImage.style.display = 'none';
+        controlForm.style.display = 'block';        
+    });  
 }

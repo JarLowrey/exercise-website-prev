@@ -17,11 +17,16 @@
 
 @import "bootstrap-sprockets";
 @import "bootstrap";
-
 body {
-  height:100%;
-  margin:0;
+    height: 100%;
+    margin: 0;
 }
-html{
-  height:100%;
+
+html {
+    height: 100%;
+}
+
+navbar {
+    display: flex;
+    justify-content: space-between;
 }

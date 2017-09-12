@@ -1,0 +1,21 @@
+<navbar>
+  <span class="left">
+    <span class="site-logo">
+
+    </span>
+  </span>
+
+  <!-- Login/registration changing -->
+  <span class="right">
+    <span class = "navbar-actions">
+      <% if user_signed_in? %>
+        <%= link_to 'Search Events', events_url %>
+        <%= link_to 'Create An Event', new_event_url%>
+      <% end %>
+    </span>
+    <span class="user-login">
+      <%= render 'devise/menu/registration_items' %>
+      <%= render 'devise/menu/login_items' %>
+    </span>
+  </span>
+</navbar>

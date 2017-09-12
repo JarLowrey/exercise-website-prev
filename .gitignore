@@ -46,3 +46,7 @@ bower.json
 
 # Ignore Byebug command history file.
 .byebug_history
+
+
+#prevent repo from exploding - store assets in the cloud
+app/assets/images/*
