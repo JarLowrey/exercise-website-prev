@@ -76,8 +76,8 @@ class EventsController < ApplicationController
 
 
   def rm_role    
-    event = Event.find(event_role_params[:id])    
-    model = select_role_model(event_role_params[:role])    
+    event = Event.find(params[:id])    
+    model = select_role_model(params[:role])    
     model.find_by(event_id: event.id, user_id: current_user.id).destroy
     msg = "You are no longer participating."
 
@@ -85,20 +85,32 @@ class EventsController < ApplicationController
   end
 
   def add_role
-    event = Event.find(event_role_params[:id])
-    model = select_role_model(event_role_params[:role])
+    event = Event.find(params[:id])
+    model = select_role_model(params[:role])
     model.create(event_id: event.id, user_id: current_user.id)
     msg = "You are now participating!"
 
     redirect_to event, notice: msg
   end
 
-  def search
+  def map_search
+    local_events = search_for_local_events
+    render json: local_events, only: [:id,:name,:start], include: { address: { only: [:latitude,:longitude,:street_address] },  exercise_instances: {include: :exercise}}
+  end
+
+  def listing_search
+    local_events = search_for_local_events
+    render json: local_events, only: [:id,:name,:description,:start], include: { address: { only: [:latitude,:longitude,:street_address] },  exercise_instances: {include: :exercise}}
+  end
+
+  private
+
+  def search_for_local_events
     #check for required params before searching
-    all_keys_present = event_search_params.has_key?(:sw_lat) and
-      event_search_params.has_key?(:ne_lat) and
-      event_search_params.has_key?(:sw_lng) and
-      event_search_params.has_key?(:ne_lng) 
+    all_keys_present = params.has_key?(:sw_lat) and
+    params.has_key?(:ne_lat) and
+    params.has_key?(:sw_lng) and
+    params.has_key?(:ne_lng) 
     if not all_keys_present
       return
     end
@@ -107,15 +119,11 @@ class EventsController < ApplicationController
     local_events = Event.includes(:address).references(:address)
       .where("latitude >= ? AND latitude <= ? AND longitude >= ? AND longitude <= ? AND 
         start >= ? AND start <= ?",       
-          event_search_params[:sw_lat], event_search_params[:ne_lat], event_search_params[:sw_lng], event_search_params[:ne_lng],
-          event_search_params[:start_time] || DateTime.now, event_search_params[:end_time] || (DateTime.now + 365),
+          params[:sw_lat], params[:ne_lat], params[:sw_lng], params[:ne_lng],
+          params[:start_time] || DateTime.now, params[:end_time] || (DateTime.now + 365),
           )
       .limit(50) # arbitrary limit, just so things don't get drowned out/too full on the map
-    
-    render json: local_events, only: [:id,:name,:start], include: { address: { only: [:latitude,:longitude,:street_addr] },  exercise_instances: {include: :exercise}}
   end
-
-  private
 
   def select_role_model(role)
     roles = Event::Participant.event_role_types
@@ -148,13 +156,5 @@ class EventsController < ApplicationController
         { social_profiles_attributes: [:id, :_destroy, :name, :url] },
         { exercise_instances_attributes: [:id, :_destroy, :distance, :duration, :exercise_name] }
     )
-  end
-
-  def event_role_params
-    params.permit(:id, :role, :user_id)
-  end
-
-  def event_search_params
-    params.permit(:ne_lat, :ne_lng, :sw_lat, :sw_lng, :start_time, :end_time)      
   end
 end

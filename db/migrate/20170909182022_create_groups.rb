@@ -5,7 +5,7 @@ class CreateGroups < ActiveRecord::Migration[5.1]
       t.string :name, null: false
       t.boolean :verified, null: false
       t.string :logo
-      
+       
       t.timestamps
     end
   end

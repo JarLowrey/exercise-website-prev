@@ -14,7 +14,7 @@ class Ability
     can [:create],            Event
     can [:update, :destroy],  Event, creator: { user_id: user.id }
     can [:update],            Event, admins: { user_id: user.id }
-    can :search, Event
+    can [:map_search, :listing_search], Event
 
     #event roles
     can :rm_role, Event, participants: { user_id: user.id } #can edit own role in event

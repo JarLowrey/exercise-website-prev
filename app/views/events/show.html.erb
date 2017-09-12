@@ -54,7 +54,7 @@ Creator
 #Event.reflect_on_all_associations.map{|x| x.class_name}.compact
 %>
 
-<p>Address: <%= @event.address.street_addr %> </p>
+<p>Address: <%= @event.address.street_address %> </p>
 
 <%= render partial: 'shared/social_profile/show', locals: {profiles: @event.social_profiles} %>
 

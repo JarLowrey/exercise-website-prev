@@ -35,7 +35,7 @@ function placeEventMarker(event) {
         '<div>' +
         '<h2>'+event.name+'</h2>'+
         '<time>' + new Date(event.start) + '</time>' +
-        '<p>' + event.address.street_addr + '</p>' +
+        '<p>' + event.address.street_address + '</p>' +
         '</div>'
     });
 
@@ -51,7 +51,7 @@ function placeEventMarker(event) {
 function search_events() {
     //Call backend to find events in the map's given area
     $.ajax({
-        url: "/events/search",
+        url: "/events/map_search",
         type: "get", //send it through get method
         data: {
             ne_lng: map.getBounds().getNorthEast().lng(),

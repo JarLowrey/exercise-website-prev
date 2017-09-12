@@ -10,10 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170813173653) do
+ActiveRecord::Schema.define(version: 20170909182022) do
 
   create_table "addresses", force: :cascade do |t|
-    t.string "street_addr", null: false
+    t.string "street_address", null: false
     t.decimal "latitude", precision: 10, scale: 6, null: false
     t.decimal "longitude", precision: 10, scale: 6, null: false
     t.string "addressable_id"
@@ -111,12 +111,12 @@ ActiveRecord::Schema.define(version: 20170813173653) do
     t.string "url"
   end
 
-  create_table "group_types", force: :cascade do |t|
+  create_table "groups", force: :cascade do |t|
     t.string "name", null: false
     t.boolean "verified", null: false
-  end
-
-  create_table "groups", force: :cascade do |t|
+    t.string "logo"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "social_profiles", force: :cascade do |t|

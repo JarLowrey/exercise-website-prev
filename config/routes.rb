@@ -14,7 +14,8 @@ Rails.application.routes.draw do
       put :rm_role
     end
     collection do
-      get :search
+      get :map_search
+      get :listing_search
     end
   end
   get "/events/:id/*other" => "events#show" #if any txt is trailing id, send this route to events#show

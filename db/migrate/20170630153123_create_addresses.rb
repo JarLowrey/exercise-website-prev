@@ -1,7 +1,7 @@
 class CreateAddresses < ActiveRecord::Migration[5.1]
   def change
     create_table :addresses do |t|     
-      t.string :street_addr, null: false
+      t.string :street_address, null: false
 
       # https://stackoverflow.com/questions/1196174/correct-datatype-for-latitude-and-longitude-in-activerecord
       # https://gis.stackexchange.com/questions/8650/measuring-accuracy-of-latitude-and-longitude

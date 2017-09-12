@@ -34,6 +34,7 @@ class Event < ApplicationRecord
     accepts_nested_attributes_for :social_profiles, reject_if: :all_blank, allow_destroy: true
 
     private
+    
     def set_id
         self.id = ShortIds.new(Event)
     end

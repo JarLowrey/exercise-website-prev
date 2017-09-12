@@ -9,7 +9,7 @@ class ExercisesController < ApplicationController
 
   def search_for_named
     #byebug
-    query = exercise_search_params[:term]
+    query = params[:term]
     #preprocess prefix? Stem words before saving?!
     #search = Exercise.joins(:exercise_names).where("name LIKE :prefix", prefix: "#{query}%")
     names = Exercise::Name.where("name LIKE :prefix", prefix: "#{query}%").order(:name)
@@ -84,7 +84,4 @@ class ExercisesController < ApplicationController
             .permit(:description, :icon_url)
     end
 
-    def exercise_search_params
-      params.permit(:term)
-    end
 end
