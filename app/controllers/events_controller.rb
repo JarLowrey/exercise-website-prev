@@ -93,16 +93,11 @@ class EventsController < ApplicationController
     redirect_to event, notice: msg
   end
 
-  def map_search
-    local_events = search_for_local_events
-    render json: local_events, only: [:id,:name,:start], include: { address: { only: [:latitude,:longitude,:street_address] },  exercise_instances: {include: :exercise}}
-  end
-
-  def listing_search
+  def search
     local_events = search_for_local_events
     render json: local_events, only: [:id,:name,:description,:start], include: { address: { only: [:latitude,:longitude,:street_address] },  exercise_instances: {include: :exercise}}
   end
-
+  
   private
 
   def search_for_local_events

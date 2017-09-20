@@ -1,0 +1,13 @@
+<%= simple_form_for :events_search, method: :get, url: search_events_path, remote: true do |f| %>
+  <%= f.simple_fields_for :address do |address| %>
+    <%= render partial: 'shared/address/form', locals: {f: address} %>
+  <% end %>
+
+  <%= f.simple_fields_for @events do |event| %>
+    <%= f.input :min_participants, input_html: { min: '0' } %>
+    <%= f.input :max_participants, input_html: { min: '0' } %>
+  <% end %>
+
+  <%= f.button :submit %>
+
+<% end %>

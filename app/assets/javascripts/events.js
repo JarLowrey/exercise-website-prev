@@ -52,7 +52,7 @@ function placeEventMarker(event) {
 function search_events() {
     //Call backend to find events in the map's given area
     $.ajax({
-        url: "/events/map_search",
+        url: "/events/search",
         type: "get", //send it through get method
         data: {
             ne_lng: map.getBounds().getNorthEast().lng(),
