@@ -5,9 +5,6 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-#payment processing
-gem 'stripe'
-
 #logging+profiling
 gem 'rack-mini-profiler'
 
@@ -15,6 +12,7 @@ gem 'rack-mini-profiler'
 gem 'sekrets' #encrypt API keys - edit via `sekrets edit config/sekrets.yml.enc`` - https://stuff-things.net/2016/01/13/the-sekrets-gem/
 
 #front-end external libraries
+gem 'webpacker', '~> 3.0'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'bootstrap-sass'

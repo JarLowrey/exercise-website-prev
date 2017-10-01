@@ -49,4 +49,6 @@ bower.json
 
 
 #prevent repo from exploding - store assets in the cloud
-app/assets/images/*
+app/assets/images/*/public/packs
+/public/packs-test
+/node_modules
