@@ -8,3 +8,5 @@
 // layout file, like app/views/layouts/application.html.erb
 
 console.log('Hello World from Webpacker')
+
+import MapSearch from 'src/events_search/map_search'

@@ -49,6 +49,8 @@ bower.json
 
 
 #prevent repo from exploding - store assets in the cloud
-app/assets/images/*/public/packs
+app/assets/images/*
+/public/packs
 /public/packs-test
 /node_modules
+yarn-error.log
