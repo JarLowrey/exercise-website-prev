@@ -12,4 +12,4 @@ Rails.application.config.assets.paths << Rails.root.join('node_modules')
 # application.js, application.css, and all non-JS/CSS in the app/assets
 # folder are already added.
 # http://theflyingdeveloper.com/controller-specific-assets-with-rails-4/
-Rails.application.config.assets.precompile +=  ['*.js', '*.erb'] 
+# Rails.application.config.assets.precompile +=  ['*.js', '*.erb'] 

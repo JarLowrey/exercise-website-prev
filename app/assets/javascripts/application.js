@@ -19,3 +19,13 @@
 //= require rails.validations.simple_form
 //= require bootstrap
 //= require cocoon
+
+//= require address
+//= require events
+//= require exercise_instances
+//= require exercises
+//= require groups
+//= require rails-coccon-handler
+//= require social_profiles
+//= require users
+

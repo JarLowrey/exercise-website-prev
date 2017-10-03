@@ -24,14 +24,6 @@ end
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 
-    <!-- controller-specific assets -->
-    <% if asset_exist? "#{params[:controller]}.js" %>
-      <%= javascript_include_tag params[:controller]%>
-    <% end %>
-    <% if asset_exist? "#{params[:controller]}.css" %>
-      <%= stylesheet_link_tag params[:controller]%>
-    <% end %>
-
     <!-- view-specific stuff -->
     <%= yield :head %>
   </head>

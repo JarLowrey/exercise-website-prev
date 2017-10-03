@@ -4,9 +4,6 @@
 %>
 
 <!-- Google Maps Must be loaded -->
-<% content_for :head do %>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCMh8-5D3mJSXspmJrhSTtt0ToGiA-JLBc&libraries=places"></script>
-<% end %>
 
 <%= f.input :street_address %>
 <%= f.input :latitude, readonly: true, wrapper_html: { style: ' display:none; '} %> 
