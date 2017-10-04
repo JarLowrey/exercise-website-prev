@@ -107,7 +107,7 @@ class EventsController < ApplicationController
     params.has_key?(:sw_lng) and
     params.has_key?(:ne_lng) 
     if not all_keys_present
-      return
+      return {}
     end
     
     #search database for local events using given params

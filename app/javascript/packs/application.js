@@ -9,4 +9,4 @@
 
 console.log('Hello World from Webpacker')
 
-import MapSearch from 'src/events_search/map_search'
+import EventSearchPack from 'src/events_search/event_search_pack'

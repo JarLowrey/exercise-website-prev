@@ -1,12 +1,11 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
 
 import GoogleMapsWrapper from './GoogleMapsWrapper.js';
 import { Marker } from 'react-google-maps';
 import MarkerClusterer from "react-google-maps/lib/components/addons/MarkerClusterer";
 
-class MapSearch extends React.Component {
+export default class MapSearch extends React.Component {
     componentWillMount() {
         this.setState({ markers: [] })
     }
@@ -33,8 +32,8 @@ class MapSearch extends React.Component {
                 loadingElement={<div style={{ height: `100%` }} />}
                 containerElement={<div style={{ height: `400px` }} />}
                 mapElement={<div style={{ height: `100%` }} />}
-                defaultZoom={3}
-                defaultCenter={{ lat: 25.0391667, lng: 121.525 }}>
+                defaultZoom={12}
+                defaultCenter={{ lat: 37.7749, lng: -122.4194 }}>
                 <MarkerClusterer
                     averageCenter
                     enableRetinaIcons
@@ -51,12 +50,3 @@ class MapSearch extends React.Component {
         );
     }
 }
-
-
-document.addEventListener('DOMContentLoaded', () => {
-    console.log("ASDASD");
-    ReactDOM.render(
-        <MapSearch name="React" />,
-        document.body.appendChild(document.createElement('div')),
-    )
-})
