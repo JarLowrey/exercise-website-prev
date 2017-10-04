@@ -7,7 +7,20 @@ import MarkerClusterer from "react-google-maps/lib/components/addons/MarkerClust
 
 export default class MapSearch extends React.Component {
     componentWillMount() {
-        this.setState({ markers: [] })
+        let refs = {};
+
+        this.setState({
+            markers: [],
+            onMapMounted: map => {
+                refs.map = map;
+            },
+            onBoundsChanged: () => {
+                this.setState({
+                    bounds: refs.map.getBounds(),
+                    center: refs.map.getCenter()
+                });
+            }
+        });
     }
 
     componentDidMount() {
@@ -28,12 +41,15 @@ export default class MapSearch extends React.Component {
     render() {
         return (
             <GoogleMapsWrapper
-                googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyCMh8-5D3mJSXspmJrhSTtt0ToGiA-JLBc&libraries=places" // libraries=geometry,drawing,places
+                googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyCMh8-5D3mJSXspmJrhSTtt0ToGiA-JLBc&libraries=geometry,drawing,places" // libraries=geometry,drawing,places
                 loadingElement={<div style={{ height: `100%` }} />}
                 containerElement={<div style={{ height: `400px` }} />}
                 mapElement={<div style={{ height: `100%` }} />}
                 defaultZoom={12}
-                defaultCenter={{ lat: 37.7749, lng: -122.4194 }}>
+                defaultCenter={{ lat: 37.7749, lng: -122.4194 }}
+                onMapMounted={this.state.onMapMounted}
+                onBoundsChanged={this.state.onBoundsChanged}
+            >
                 <MarkerClusterer
                     averageCenter
                     enableRetinaIcons

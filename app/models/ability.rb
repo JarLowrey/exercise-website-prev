@@ -9,12 +9,12 @@ class Ability
     #user ||= User.new # guest user (not logged in)
     can :read, :all
     return if user == nil
-
+    byebug
     #events
     can [:create],            Event
     can [:update, :destroy],  Event, creator: { user_id: user.id }
     can [:update],            Event, admins: { user_id: user.id }
-    can [:search], Event
+    can [:search],            Event
 
     #event roles
     can :rm_role, Event, participants: { user_id: user.id } #can edit own role in event

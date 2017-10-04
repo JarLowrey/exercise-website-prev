@@ -9,7 +9,7 @@ import { GoogleMap } from 'react-google-maps';
 class EventSearchPack extends React.Component {
     constructor(props) {
         super(props);
-        this.search();
+        // this.search();
     }
 
     search(params) {
@@ -23,7 +23,10 @@ class EventSearchPack extends React.Component {
         fetch('/events/search' + queryString.stringify(params))
             .then(response => response.json())
             .then(data => {
+                console.log(data);
                 // this.setState({ markers: data.photos });
+            }).catch(ex => {
+                console.log('parsing failed', ex)
             });
     }
 
