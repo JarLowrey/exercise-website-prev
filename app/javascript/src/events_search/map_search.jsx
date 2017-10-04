@@ -6,19 +6,35 @@ import { Marker } from 'react-google-maps';
 import MarkerClusterer from "react-google-maps/lib/components/addons/MarkerClusterer";
 
 export default class MapSearch extends React.Component {
-    componentWillMount() {
-        let refs = {};
+    constructor(props){
+        super(props);
+        this.wait_after_map_bounds_change_before_searching_db = 800;
+        this.search_timer = null;     
+        this.map = null;   
+    }
 
+    _passBoundsUp(){
+        const bnds = {
+            ne_lng: this.map.getBounds().getNorthEast().lng(),
+            ne_lat: this.map.getBounds().getNorthEast().lat(),
+            sw_lng: this.map.getBounds().getSouthWest().lng(),
+            sw_lat: this.map.getBounds().getSouthWest().lat()
+        }
+        this.props.mapBoundsChanged( {bounds: bnds} ); 
+    }
+
+    componentWillMount() {
         this.setState({
             markers: [],
             onMapMounted: map => {
-                refs.map = map;
+                this.map = map;
             },
             onBoundsChanged: () => {
-                this.setState({
-                    bounds: refs.map.getBounds(),
-                    center: refs.map.getCenter()
-                });
+                //Wait a little after the user has finished changing the map's window/bounds before triggering a search (for performance reasons)
+                if (search_timer) {
+                    window.clearTimeout(search_timer);
+                }
+                search_timer = window.setTimeout(this._passBoundsUp.bind(this), this.wait_after_map_bounds_change_before_searching_db);
             }
         });
     }

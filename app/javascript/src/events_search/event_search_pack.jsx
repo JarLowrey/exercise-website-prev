@@ -4,7 +4,6 @@ import PropTypes from 'prop-types'
 
 import MapSearch from './map_search'
 import queryString from 'query-string'
-import { GoogleMap } from 'react-google-maps';
 
 class EventSearchPack extends React.Component {
     constructor(props) {
@@ -20,7 +19,8 @@ class EventSearchPack extends React.Component {
         //     sw_lng: map.getBounds().getSouthWest().lng(),
         //     sw_lat: map.getBounds().getSouthWest().lat()
         // };
-        fetch('/events/search' + queryString.stringify(params))
+        console.log('/events/search' + queryString.stringify(this.state), this.state)
+        fetch('/events/search' + queryString.stringify(this.state))
             .then(response => response.json())
             .then(data => {
                 console.log(data);
@@ -32,7 +32,12 @@ class EventSearchPack extends React.Component {
 
     render() {
         return (
-            <MapSearch />
+            <MapSearch
+                mapBoundsChanged={
+                    (bnds) => {
+                        console.log(bnds); this.setState({ bounds: bnds })
+                    }
+                } />
         );
 
     }
