@@ -9,7 +9,6 @@ class Event < ApplicationRecord
     validates :start, presence: true
     validate  :start_is_in_future
     
-    
     #user-event roles
     has_many :workers, dependent: :destroy
     has_many :participants, dependent: :destroy

@@ -8,8 +8,8 @@ class Ability
 
     #user ||= User.new # guest user (not logged in)
     can :read, :all
-    return if user == nil
     byebug
+    return if user == nil
     #events
     can [:create],            Event
     can [:update, :destroy],  Event, creator: { user_id: user.id }

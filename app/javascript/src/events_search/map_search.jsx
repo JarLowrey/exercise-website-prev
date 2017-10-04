@@ -20,7 +20,7 @@ export default class MapSearch extends React.Component {
             sw_lng: this.map.getBounds().getSouthWest().lng(),
             sw_lat: this.map.getBounds().getSouthWest().lat()
         }
-        this.props.mapBoundsChanged( {bounds: bnds} ); 
+        this.props.mapBoundsChanged( bnds ); 
     }
 
     componentWillMount() {

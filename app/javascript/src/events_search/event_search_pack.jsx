@@ -11,7 +11,7 @@ class EventSearchPack extends React.Component {
         // this.search();
     }
 
-    search(params) {
+    search_for_events() {
         // let params = {
         //     ne_lng: map.getBounds().getNorthEast().lng(),
         //     ne_lat: map.getBounds().getNorthEast().lat(),
@@ -19,9 +19,10 @@ class EventSearchPack extends React.Component {
         //     sw_lng: map.getBounds().getSouthWest().lng(),
         //     sw_lat: map.getBounds().getSouthWest().lat()
         // };
-        console.log('/events/search' + queryString.stringify(this.state), this.state)
-        fetch('/events/search' + queryString.stringify(this.state))
-            .then(response => response.json())
+        console.log('/events/search?' + queryString.stringify(this.state) );
+        console.log(this.state);
+        fetch('/events/search?' + queryString.stringify(this.state))
+            .then(response => {response.json()})
             .then(data => {
                 console.log(data);
                 // this.setState({ markers: data.photos });
@@ -35,7 +36,13 @@ class EventSearchPack extends React.Component {
             <MapSearch
                 mapBoundsChanged={
                     (bnds) => {
-                        console.log(bnds); this.setState({ bounds: bnds })
+                        this.setState({
+                            ne_lng: bnds.ne_lng,
+                            ne_lat: bnds.ne_lat,
+                            sw_lng: bnds.sw_lng,
+                            sw_lat: bnds.sw_lat
+                        });
+                        this.search_for_events();
                     }
                 } />
         );
@@ -44,7 +51,6 @@ class EventSearchPack extends React.Component {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    console.log("ASDASD");
     ReactDOM.render(
         <EventSearchPack />,
         document.body.appendChild(document.createElement('div')),
