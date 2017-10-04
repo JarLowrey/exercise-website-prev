@@ -19,13 +19,11 @@ class EventSearchPack extends React.Component {
         //     sw_lng: map.getBounds().getSouthWest().lng(),
         //     sw_lat: map.getBounds().getSouthWest().lat()
         // };
-        console.log('/events/search?' + queryString.stringify(this.state));
-        console.log(this.state);
         let url = '/events/search?' + queryString.stringify(this.state);
         fetch(url, {
             credentials: 'same-origin'
         })
-            .then(response => { response.json() })
+            .then(response => response.json())
             .then(data => {
                 console.log(data);
                 // this.setState({ markers: data.photos });
