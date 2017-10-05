@@ -54,7 +54,7 @@ event1 = Event.create!(
     description: "Testing event in DB", 
     min_participants: 1,
     max_participants: 5,
-    start: DateTime.now + 10,
+    start: DateTime.new(Date.today.year,Date.today.month+1,10,12),
     address: Address.create!(street_address: "Columbus OH USA", latitude: 39.9612, longitude: -82.9988),
     social_profiles: [ SocialProfile.create!(name: "facebook", url: "http://facebook.com") ], 
     exercise_instances: [ Exercise::Instance.create!(exercise_id: run.id, distance: 2), Exercise::Instance.create!(exercise_id: swim.id, distance: 2) ]

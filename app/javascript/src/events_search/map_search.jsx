@@ -48,6 +48,19 @@ export default class MapSearch extends React.Component {
                 mapElement={<div style={{ height: `100%` }} />}
                 defaultZoom={12}
                 defaultCenter={{ lat: 37.7749, lng: -122.4194 }}
+                defaultOptions={{
+                    styles: [ //Style ref: https://developers.google.com/maps/documentation/javascript/style-reference
+                        // {
+                        //     featureType: 'poi',
+                        //     stylers: [{ visibility: "off" }]
+                        // },
+                        {
+                            featureType: 'transit',
+                            elementType: 'labels.icon',
+                            stylers: [{ visibility: 'off' }]
+                        }
+                    ]
+                }}
                 onMapMounted={this.state.onMapMounted}
                 onBoundsChanged={this.state.onBoundsChanged}
             >
