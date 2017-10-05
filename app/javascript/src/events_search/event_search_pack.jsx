@@ -9,6 +9,9 @@ class EventSearchPack extends React.Component {
     constructor(props) {
         super(props);
         // this.search();
+        this.state = ({
+            events: []
+        });
     }
 
     search_for_events() {
@@ -25,8 +28,7 @@ class EventSearchPack extends React.Component {
         })
             .then(response => response.json())
             .then(data => {
-                console.log(data);
-                // this.setState({ markers: data.photos });
+                this.setState({ events: data });
             }).catch(ex => {
                 console.log('parsing failed', ex)
             });
@@ -37,15 +39,12 @@ class EventSearchPack extends React.Component {
             <MapSearch
                 mapBoundsChanged={
                     (bnds) => {
-                        this.setState({
-                            ne_lng: bnds.ne_lng,
-                            ne_lat: bnds.ne_lat,
-                            sw_lng: bnds.sw_lng,
-                            sw_lat: bnds.sw_lat
-                        });
+                        this.setState(bnds);
                         this.search_for_events();
                     }
-                } />
+                } 
+                events={this.state.events}
+                />
         );
 
     }
