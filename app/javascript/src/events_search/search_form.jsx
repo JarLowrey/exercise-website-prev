@@ -5,12 +5,12 @@ import moment from 'moment';
 
 export default class EventSearchForm extends React.Component {
   _isTodayOrLater(currentDate) {
-    let yesterday = Datetime.moment().subtract(1, 'day');
-    return currentDate.isAfter(yesterday);
+    let today = moment(new Date());
+    return currentDate.isSameOrAfter(today,'day');
   }
   _isValidEnd(currentDate) {
     try {
-      return this._isTodayOrLater(currentDate) && currentDate.isSameOrAfter(this.props.start);
+      return this._isTodayOrLater(currentDate) && currentDate.isSameOrAfter(this.props.start,'day');
     } catch (e) {
       return false;
     }
