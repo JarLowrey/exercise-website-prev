@@ -110,12 +110,15 @@ class EventsController < ApplicationController
       return {}
     end
     
+    start_datetime = Time.at(params[:start].to_i)
+    end_datetime = Time.at(params[:end].to_i)
+    
     #search database for local events using given params
     local_events = Event.includes(:address).references(:address)
       .where("latitude >= ? AND latitude <= ? AND longitude >= ? AND longitude <= ? AND 
         start >= ? AND start <= ?",       
           params[:sw_lat], params[:ne_lat], params[:sw_lng], params[:ne_lng],
-          params[:start_time] || DateTime.now, params[:end_time] || (DateTime.now + 365),
+          start_datetime, end_datetime,
           )
       .limit(50) # arbitrary limit, just so things don't get drowned out/too full on the map
   end

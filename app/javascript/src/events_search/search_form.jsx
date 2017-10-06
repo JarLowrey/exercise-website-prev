@@ -2,52 +2,40 @@ import React from 'react';
 
 import Datetime from 'react-datetime';
 import moment from 'moment';
-// import styled from 'styled-components';
-// import '../css/react-datetime.css';
 
 export default class EventSearchForm extends React.Component {
-
-  componentWillMount(){
-    //set default state
-    this.setState({
-      start: Datetime.moment(),
-      end: Datetime.moment().add(1,'week')
-    });
-  }
-
   _isTodayOrLater(currentDate) {
     let yesterday = Datetime.moment().subtract(1, 'day');
     return currentDate.isAfter(yesterday);
   }
   _isValidEnd(currentDate) {
     try {
-      return this._isTodayOrLater(currentDate) && currentDate.isSameOrAfter(this.state.start);
+      return this._isTodayOrLater(currentDate) && currentDate.isSameOrAfter(this.props.start);
     } catch (e) {
       return false;
     }
   }
-  
   render() {
     return (
       <div>
         <Datetime
           isValidDate={this._isTodayOrLater}
-          defaultValue={this.state.start}
+          defaultValue={this.props.start}
           inputProps={
             {
               placeholder: "From"
             }
           }
-          onChange={(date) => { this.setState({ start: date }) }} />
+          onChange={this.props.onStartChange} />
         <Datetime
           isValidDate={this._isValidEnd.bind(this)}
-          defaultValue={this.state.end}
+          defaultValue={this.props.end}
           inputProps={
             {
               placeholder: "To"
             }
           }
-          onChange={(date) => { this.setState({ end: date }) }} />
+          onChange={this.props.onEndChange} />
       </div>
     );
   }
