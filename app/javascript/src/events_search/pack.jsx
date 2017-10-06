@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 
 import MapSearch from './map_search'
 import EventListingsHandler from './event_listings_handler'
+import EventSearchForm from './search_form'
 import queryString from 'query-string'
 
 class EventSearchPack extends React.Component {
@@ -31,8 +32,9 @@ class EventSearchPack extends React.Component {
     render() {
         return (
             <div>
-                <EventListingsHandler events={this.state.events}/>
-                <MapSearch 
+                <EventSearchForm />
+                <EventListingsHandler events={this.state.events} />
+                <MapSearch
                     mapBoundsChanged={
                         (bnds) => {
                             this.setState(bnds);
