@@ -31,10 +31,10 @@ export default class MapSearch extends React.Component {
             },
             onBoundsChanged: () => {
                 //Wait a little after the user has finished changing the map's window/bounds before triggering a search (for performance reasons)
-                if (search_timer) {
-                    window.clearTimeout(search_timer);
+                if (this.search_timer) {
+                    window.clearTimeout(this.search_timer);
                 }
-                search_timer = window.setTimeout(this._passBoundsUp.bind(this), this.wait_after_map_bounds_change_before_searching_db);
+                this.search_timer = window.setTimeout(this._passBoundsUp.bind(this), this.wait_after_map_bounds_change_before_searching_db);
             }
         });
     }
