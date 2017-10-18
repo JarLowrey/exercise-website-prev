@@ -15,7 +15,7 @@ class EventSearchPack extends React.Component {
         this.state = {
             events: [],
             start: moment(new Date()),
-            end: moment(new Date()).add(1, 'week')
+            end: moment(new Date()).add(1, 'week'),
         };
     }
 
@@ -25,7 +25,7 @@ class EventSearchPack extends React.Component {
         //preprocess data before sending
         search_params.start = search_params.start.unix();
         search_params.end = search_params.end.unix();
-        
+
         let url = '/events/search?' + queryString.stringify(search_params);
         fetch(url, {
             credentials: 'same-origin'

@@ -1,11 +1,12 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React from 'react';
+// import PropTypes from 'prop-types';
 
-import GoogleMapsWrapper from './GoogleMapsWrapper.js';
 import { Marker } from 'react-google-maps';
 import MarkerClusterer from "react-google-maps/lib/components/addons/MarkerClusterer";
+import scriptLoader from 'react-async-script-loader';
+import GoogleMapsWrapper from './GoogleMapsWrapper';
 
-export default class MapSearch extends React.Component {
+class MapSearch extends React.Component {
     constructor(props) {
         super(props);
         this.wait_after_map_bounds_change_before_searching_db = 800;
@@ -40,8 +41,14 @@ export default class MapSearch extends React.Component {
     }
 
     render() {
+        //do not load component if Google Maps API is not yet available
+        const { isScriptLoaded, isScriptLoadSucceed } = this.props;  
+        const not_loaded = !(isScriptLoaded && isScriptLoadSucceed);   
+        if (not_loaded){return (<div></div>);}
+
         return (
             <GoogleMapsWrapper
+                ref={(map) => this.map = map}
                 googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyCMh8-5D3mJSXspmJrhSTtt0ToGiA-JLBc&libraries=geometry,drawing,places" // libraries=geometry,drawing,places
                 loadingElement={<div style={{ height: `100%` }} />}
                 containerElement={<div style={{ height: `400px` }} />}
@@ -80,3 +87,8 @@ export default class MapSearch extends React.Component {
         );
     }
 }
+
+
+export default scriptLoader(
+    'https://maps.googleapis.com/maps/api/js?key=AIzaSyCMh8-5D3mJSXspmJrhSTtt0ToGiA-JLBc&libraries=geometry,drawing,places'
+)(MapSearch);

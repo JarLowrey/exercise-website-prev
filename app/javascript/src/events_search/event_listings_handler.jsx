@@ -1,5 +1,5 @@
-import React from 'react'
-import EventListing from './event_listing'
+import React from 'react';
+import EventListing from './event_listing';
 
 export default class EventListingsHandler extends React.Component {
 

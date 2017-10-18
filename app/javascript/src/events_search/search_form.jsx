@@ -1,46 +1,60 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import Datetime from 'react-datetime';
 import moment from 'moment';
-import styles from 'react-datetime/css/react-datetime.css'
+import styles from 'react-datetime/css/react-datetime.css';
+
+import PlacesAutocomplete from './places_autocomplete';
 
 
 export default class EventSearchForm extends React.Component {
-  _isTodayOrLater(currentDate) {
-    let today = moment(new Date());
+  static isTodayOrLater(currentDate) {
+    const today = moment(new Date());
     return currentDate.isSameOrAfter(today, 'day');
   }
-  _isValidEnd(currentDate) {
+
+  static isValidEnd(currentDate) {
     try {
-      return this._isTodayOrLater(currentDate) && currentDate.isSameOrAfter(this.props.start, 'day');
+      return EventSearchForm.isTodayOrLater(currentDate) && currentDate.isSameOrAfter(this.props.start, 'day');
     } catch (e) {
       return false;
     }
   }
-  render() {
 
+  render() {
     return (
       <div>
+        <PlacesAutocomplete />
         <Datetime
-          className={styles['rdt']}
-          isValidDate={this._isTodayOrLater}
+          className={styles.rdt}
+          isValidDate={EventSearchForm.isTodayOrLater}
           defaultValue={this.props.start}
           inputProps={
             {
-              placeholder: "From"
+              placeholder: 'From',
             }
           }
-          onChange={this.props.onStartChange} />
+          onChange={this.props.onStartChange}
+        />
         <Datetime
-          isValidDate={this._isValidEnd.bind(this)}
+          isValidDate={EventSearchForm.isValidEnd}
           defaultValue={this.props.end}
           inputProps={
             {
-              placeholder: "To"
+              placeholder: 'To',
             }
           }
-          onChange={this.props.onEndChange} />
+          onChange={this.props.onEndChange}
+        />
       </div>
     );
   }
 }
+
+EventSearchForm.propTypes = {
+  onEndChange: PropTypes.func.isRequired,
+  onStartChange: PropTypes.func.isRequired,
+  start: PropTypes.objectOf(Date).isRequired,
+  end: PropTypes.objectOf(Date).isRequired,
+};
