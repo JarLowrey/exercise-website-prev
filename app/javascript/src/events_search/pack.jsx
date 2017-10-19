@@ -10,6 +10,7 @@ import EventSearchForm from './search_form';
 class EventSearchPack extends React.Component {
   constructor(props) {
     super(props);
+    this.mapBoundsChanged = this.mapBoundsChanged.bind(this);
 
     this.state = {
       events: [],
@@ -18,17 +19,21 @@ class EventSearchPack extends React.Component {
     };
   }
 
+  mapBoundsChanged(bnds) {
+    this.setState(bnds);
+    this.searchForEvents();
+  }
+
   searchForEvents() {
     // extract relevant vars search param vars from this.state
-    const searchParams = (({
-      start, end, ne_lng, ne_lat, sw_lng, sw_lat,
-    }) => ({
-      start, end, ne_lng, ne_lat, sw_lng, sw_lat,
-    }))(this.state);
-
-    // preprocess data before sending
-    searchParams.start = searchParams.start.unix();
-    searchParams.end = searchParams.end.unix();
+    const searchParams = {
+      start: this.state.start.unix(),
+      end: this.state.end.unix(),
+      ne_lat: this.state.ne.lat,
+      ne_lng: this.state.ne.lng,
+      sw_lat: this.state.sw.lat,
+      sw_lng: this.state.sw.lng,
+    };
 
     const url = `/events/search?${queryString.stringify(searchParams)}`;
     fetch(url, {
@@ -50,16 +55,14 @@ class EventSearchPack extends React.Component {
           end={this.state.end}
           onStartChange={(date) => { this.setState({ start: date }); }}
           onEndChange={(date) => { this.setState({ end: date }); }}
+          mapBoundsChanged={this.mapBoundsChanged}
         />
         <EventListingsHandler events={this.state.events} />
         <MapSearch
-          mapBoundsChanged={
-            (bnds) => {
-              this.setState(bnds);
-              this.searchForEvents();
-            }
-          }
+          mapBoundsChanged={this.mapBoundsChanged}
           events={this.state.events}
+          sw={this.state.sw}
+          ne={this.state.ne}
         />
       </div>
     );

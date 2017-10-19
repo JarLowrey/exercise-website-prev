@@ -25,7 +25,9 @@ export default class EventSearchForm extends React.Component {
   render() {
     return (
       <div>
-        <PlacesAutocomplete />
+        <PlacesAutocomplete
+          mapBoundsChanged={this.props.mapBoundsChanged}
+        />
         <Datetime
           className={styles.rdt}
           isValidDate={EventSearchForm.isTodayOrLater}
@@ -53,6 +55,7 @@ export default class EventSearchForm extends React.Component {
 }
 
 EventSearchForm.propTypes = {
+  mapBoundsChanged: PropTypes.func.isRequired,
   onEndChange: PropTypes.func.isRequired,
   onStartChange: PropTypes.func.isRequired,
   start: PropTypes.objectOf(Date).isRequired,

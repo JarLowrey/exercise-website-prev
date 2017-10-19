@@ -1,3 +1,5 @@
+/* global google */
+
 import React from 'react';
 import PropTypes from 'prop-types';
 
@@ -5,41 +7,76 @@ import { Marker } from 'react-google-maps';
 import MarkerClusterer from 'react-google-maps/lib/components/addons/MarkerClusterer';
 import scriptLoader from 'react-async-script-loader';
 import GoogleMapsWrapper from './GoogleMapsWrapper';
-import { EventPropType } from '../CustomPropTypes';
+import { EventPropType, LatLngPropType } from '../CustomPropTypes';
 
 class MapSearch extends React.Component {
   constructor(props) {
     super(props);
+
+    // bind functions
+    this.registerBoundsChanged = this.registerBoundsChanged.bind(this);
+    this.boundsChanged = this.boundsChanged.bind(this);
+    this.onMapMounted = this.onMapMounted.bind(this);
+    this.toggleSearchMapOnDrag = this.toggleSearchMapOnDrag.bind(this);
+    this.handleKeyPress = this.handleKeyPress.bind(this);
+
+    // initialize vars
     this.mapSearchDelay = 800;
     this.searchDelayTimer = null;
     this.map = null;
-    this.passBoundsUp = this.passBoundsUp.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.setState({
-      onMapMounted: (map) => {
-        this.map = map;
-      },
-      onBoundsChanged: () => {
-        // Wait a little after the user has finished changing the map's
-        // bounds before triggering a search (for performance reasons)
-        if (this.searchDelayTimer) {
-          window.clearTimeout(this.searchDelayTimer);
-        }
-        this.searchDelayTimer = window.setTimeout(this.passBoundsUp, this.mapSearchDelay);
-      },
+      searchMapOnDrag: true,
     });
   }
 
-  passBoundsUp() {
-    const bnds = {
-      ne_lng: this.map.getBounds().getNorthEast().lng(),
-      ne_lat: this.map.getBounds().getNorthEast().lat(),
-      sw_lng: this.map.getBounds().getSouthWest().lng(),
-      sw_lat: this.map.getBounds().getSouthWest().lat(),
-    };
-    this.props.mapBoundsChanged(bnds);
+  componentWillReceiveProps(nextProps) {
+    this.setMapLocation();
+  }
+
+  onMapMounted(map) {
+    this.map = map;
+    this.setMapLocation();
+  }
+
+  setMapLocation() {
+    if (this.map) {
+      const bounds = new google.maps.LatLngBounds();
+      bounds.extend(this.props.sw);
+      bounds.extend(this.props.ne);
+      this.map.fitBounds(bounds);
+      this.setState({ searchMapOnDrag: false });
+    }
+  }
+
+  registerBoundsChanged() {
+    this.props.mapBoundsChanged({
+      sw: this.map.getBounds().getSouthWest().toJSON(),
+      ne: this.map.getBounds().getNorthEast().toJSON(),
+    });
+  }
+
+  boundsChanged() {
+    // Wait a little after the user has finished changing the map's
+    // bounds before triggering a search (for performance reasons)
+    if (this.searchDelayTimer) {
+      window.clearTimeout(this.searchDelayTimer);
+    }
+    if (this.state.searchMapOnDrag) {
+      this.searchDelayTimer = window.setTimeout(this.registerBoundsChanged, this.mapSearchDelay);
+    }
+  }
+
+  toggleSearchMapOnDrag() {
+    this.setState({ searchMapOnDrag: !this.state.searchMapOnDrag });
+  }
+
+  handleKeyPress(event) {
+    if (event.keyCode === 13) {
+      this.toggleSearchMapOnDrag();
+    }
   }
 
   render() {
@@ -49,56 +86,93 @@ class MapSearch extends React.Component {
     if (notLoaded) { return (<div />); }
 
     return (
-      <GoogleMapsWrapper
-        googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyCMh8-5D3mJSXspmJrhSTtt0ToGiA-JLBc&libraries=geometry,drawing,places"
-        loadingElement={<div style={{ height: '100%' }} />}
-        containerElement={<div style={{ height: '400px' }} />}
-        mapElement={<div style={{ height: '100%' }} />}
-        defaultZoom={12}
-        defaultCenter={{ lat: 37.7749, lng: -122.4194 }}
-        defaultOptions={{
-          styles: [ // Style ref: https://developers.google.com/maps/documentation/javascript/style-reference
-            // {
-            //     featureType: 'poi',
-            //     stylers: [{ visibility: 'off' }]
-            // },
-            {
-              featureType: 'transit',
-              elementType: 'labels.icon',
-              stylers: [{ visibility: 'off' }],
-            },
-          ],
-        }}
-        onMapMounted={this.state.onMapMounted}
-        onBoundsChanged={this.state.onBoundsChanged}
+      <div style={{
+        position: 'relative',
+      }}
       >
-        <MarkerClusterer
-          averageCenter
-          enableRetinaIcons
-          gridSize={60}
+        <GoogleMapsWrapper
+          googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyCMh8-5D3mJSXspmJrhSTtt0ToGiA-JLBc&libraries=geometry,drawing,places"
+          loadingElement={<div style={{ height: '100%' }} />}
+          containerElement={<div style={{ height: '400px' }} />}
+          mapElement={<div style={{ height: '100%' }} />}
+          defaultOptions={{
+            styles: [ // Style ref: https://developers.google.com/maps/documentation/javascript/style-reference
+              // {
+              //     featureType: 'poi',
+              //     stylers: [{ visibility: 'off' }]
+              // },
+              {
+                featureType: 'transit',
+                elementType: 'labels.icon',
+                stylers: [{ visibility: 'off' }],
+              },
+            ],
+            fullscreenControl: false,
+            streetViewControl: false,
+          }}
+          onMapMounted={this.onMapMounted}
+          onBoundsChanged={this.boundsChanged}
         >
-          {this.props.events.map(event => (
-            <Marker
-              key={event.id}
-              position={{
-                lat: parseFloat(event.address.latitude),
-                lng: parseFloat(event.address.longitude),
-              }}
-            />
-          ))}
-        </MarkerClusterer>
-      </GoogleMapsWrapper>
+          <MarkerClusterer
+            averageCenter
+            enableRetinaIcons
+            gridSize={60}
+          >
+            {this.props.events.map(event => (
+              <Marker
+                key={event.id}
+                position={{
+                  lat: parseFloat(event.address.latitude),
+                  lng: parseFloat(event.address.longitude),
+                }}
+              />
+            ))}
+          </MarkerClusterer>
+        </GoogleMapsWrapper>
+
+        <div
+          style={{
+            position: 'absolute',
+            top: '5px',
+            right: '5px',
+            background: 'white',
+            boxSizing: 'border-box',
+            border: '1px solid transparent',
+            padding: '6px',
+            borderRadius: '3px',
+            boxShadow: '0 2px 6px rgba(0, 0, 0, 0.3)',
+            fontSize: '14px',
+            outline: 'none',
+            textOverflow: 'ellipses',
+          }}
+          onClick={this.toggleSearchMapOnDrag}
+          role="button"
+          tabIndex={0}
+          onKeyPress={this.handleKeyPress}
+        >
+          <input
+            type="checkbox"
+            checked={this.state.searchMapOnDrag}
+            onChange={this.toggleSearchMapOnDrag}
+          />
+          <span>Search as I move the map</span>
+        </div>
+      </div>
     );
   }
 }
 
-
 export default scriptLoader('https://maps.googleapis.com/maps/api/js?key=AIzaSyCMh8-5D3mJSXspmJrhSTtt0ToGiA-JLBc&libraries=geometry,drawing,places')(MapSearch);
 
-
 MapSearch.propTypes = {
+  sw: LatLngPropType,
+  ne: LatLngPropType,
   mapBoundsChanged: PropTypes.func.isRequired,
   events: PropTypes.arrayOf(EventPropType).isRequired,
   isScriptLoaded: PropTypes.bool.isRequired,
   isScriptLoadSucceed: PropTypes.bool.isRequired,
+};
+MapSearch.defaultProps = {
+  sw: { lat: 37.70339999999999, lng: -122.52699999999999 }, // Bounds of San Francisco
+  ne: { lat: 37.812, lng: -122.34820000000002 },
 };

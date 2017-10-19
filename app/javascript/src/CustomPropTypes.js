@@ -13,3 +13,8 @@ export const EventPropType = PropTypes.shape({
   description: PropTypes.string,
   address: AddressPropType,
 });
+
+export const LatLngPropType = PropTypes.shape({
+  lat: PropTypes.number.isRequired,
+  lng: PropTypes.number.isRequired,
+});

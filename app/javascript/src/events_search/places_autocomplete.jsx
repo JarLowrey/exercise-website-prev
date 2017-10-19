@@ -9,14 +9,15 @@ class PlacesAutocomplete extends React.Component {
   constructor() {
     super();
     this.initAutocomplete = this.initAutocomplete.bind(this);
+    this.placeChanged = this.placeChanged.bind(this);
   }
 
-  componentDidMount() {
-    const { isScriptLoaded, isScriptLoadSucceed } = this.props;
-    if (isScriptLoaded && isScriptLoadSucceed) {
-      this.initAutocomplete();
-    }
-  }
+  // componentDidMount() {
+  //   const { isScriptLoaded, isScriptLoadSucceed } = this.props;
+  //   if (isScriptLoaded && isScriptLoadSucceed) {
+  //     this.initAutocomplete();
+  //   }
+  // }
   componentWillReceiveProps({ isScriptLoaded, isScriptLoadSucceed }) {
     if (isScriptLoaded && !this.props.isScriptLoaded) { // load finished
       if (isScriptLoadSucceed) {
@@ -28,6 +29,15 @@ class PlacesAutocomplete extends React.Component {
   initAutocomplete(input) {
     if (!google || !input) return;
     this.autocomplete = new google.maps.places.Autocomplete(input);
+    this.autocomplete.addListener('place_changed', this.placeChanged);
+  }
+
+  placeChanged() {
+    const place = this.autocomplete.getPlace();
+    this.props.mapBoundsChanged({
+      sw: place.geometry.viewport.getSouthWest().toJSON(),
+      ne: place.geometry.viewport.getNorthEast().toJSON(),
+    });
   }
 
   render() {
@@ -44,6 +54,7 @@ class PlacesAutocomplete extends React.Component {
 }
 
 PlacesAutocomplete.propTypes = {
+  mapBoundsChanged: PropTypes.func,
   isScriptLoaded: PropTypes.bool.isRequired,
   isScriptLoadSucceed: PropTypes.bool.isRequired,
   onError: PropTypes.func,
@@ -51,6 +62,7 @@ PlacesAutocomplete.propTypes = {
 
 PlacesAutocomplete.defaultProps = {
   onError: () => { },
+  mapBoundsChanged: () => { },
 };
 
 
