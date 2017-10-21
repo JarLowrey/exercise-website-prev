@@ -34,7 +34,7 @@ class PlacesAutocomplete extends React.Component {
 
   placeChanged() {
     const place = this.autocomplete.getPlace();
-    this.props.mapBoundsChanged({
+    this.props.placeChanged({
       sw: place.geometry.viewport.getSouthWest().toJSON(),
       ne: place.geometry.viewport.getNorthEast().toJSON(),
     });
@@ -54,7 +54,7 @@ class PlacesAutocomplete extends React.Component {
 }
 
 PlacesAutocomplete.propTypes = {
-  mapBoundsChanged: PropTypes.func,
+  placeChanged: PropTypes.func,
   isScriptLoaded: PropTypes.bool.isRequired,
   isScriptLoadSucceed: PropTypes.bool.isRequired,
   onError: PropTypes.func,
@@ -62,7 +62,7 @@ PlacesAutocomplete.propTypes = {
 
 PlacesAutocomplete.defaultProps = {
   onError: () => { },
-  mapBoundsChanged: () => { },
+  placeChanged: () => { },
 };
 
 

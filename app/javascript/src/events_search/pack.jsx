@@ -10,7 +10,7 @@ import EventSearchForm from './search_form';
 class EventSearchPack extends React.Component {
   constructor(props) {
     super(props);
-    this.mapBoundsChanged = this.mapBoundsChanged.bind(this);
+    this.updateStateAndSearch = this.updateStateAndSearch.bind(this);
 
     this.state = {
       events: [],
@@ -19,7 +19,7 @@ class EventSearchPack extends React.Component {
     };
   }
 
-  mapBoundsChanged(bnds) {
+  updateStateAndSearch(bnds) {
     this.setState(bnds);
     this.searchForEvents();
   }
@@ -55,11 +55,11 @@ class EventSearchPack extends React.Component {
           end={this.state.end}
           onStartChange={(date) => { this.setState({ start: date }); }}
           onEndChange={(date) => { this.setState({ end: date }); }}
-          mapBoundsChanged={this.mapBoundsChanged}
+          searchParamsChanged={this.updateStateAndSearch}
         />
         <EventListingsHandler events={this.state.events} />
         <MapSearch
-          mapBoundsChanged={this.mapBoundsChanged}
+          searchParamsChanged={this.updateStateAndSearch}
           events={this.state.events}
           sw={this.state.sw}
           ne={this.state.ne}

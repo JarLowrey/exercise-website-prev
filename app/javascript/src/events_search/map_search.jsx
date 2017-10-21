@@ -24,16 +24,15 @@ class MapSearch extends React.Component {
     this.mapSearchDelay = 800;
     this.searchDelayTimer = null;
     this.map = null;
+    this.state = {
+      searchMapOnDrag: true,
+    };
   }
 
-  componentDidMount() {
-    this.setState({
-      searchMapOnDrag: true,
-    });
-  }
 
   componentWillReceiveProps(nextProps) {
-    this.setMapLocation();
+    // Use potentially updated Southwest/Northeast bounds to update the map's bounds
+    this.setMapLocation(nextProps.sw, nextProps.ne);
   }
 
   onMapMounted(map) {
@@ -41,18 +40,33 @@ class MapSearch extends React.Component {
     this.setMapLocation();
   }
 
-  setMapLocation() {
+  setMapLocation(sw = this.props.sw, ne = this.props.ne) {
     if (this.map) {
-      const bounds = new google.maps.LatLngBounds();
-      bounds.extend(this.props.sw);
-      bounds.extend(this.props.ne);
-      this.map.fitBounds(bounds);
-      this.setState({ searchMapOnDrag: false });
+      let shouldUpdateBounds = true; // default to true, as bounds may be set after map first loads
+
+      // only update map if bounds are different than current values
+      // Using fitBounds with the same bounds causes the map to move
+      // getBounds() may return undefined when map is first loading,
+      // which would make it impossible to compare to maps current SW/NE vals
+      if (this.map.getBounds()) {
+        const currSW = this.map.getBounds().getSouthWest().toJSON();
+        const currNE = this.map.getBounds().getNorthEast().toJSON();
+
+        const diffNEval = currNE.lat !== ne.lat || currNE.lng !== ne.lng;
+        const diffSWval = currSW.lat !== sw.lat || currSW.lng !== sw.lng;
+
+        shouldUpdateBounds = diffNEval || diffSWval;
+      }
+
+      if (shouldUpdateBounds) {
+        const newBnds = new google.maps.LatLngBounds(sw, ne);
+        this.map.fitBounds(newBnds);
+      }
     }
   }
 
   registerBoundsChanged() {
-    this.props.mapBoundsChanged({
+    this.props.searchParamsChanged({
       sw: this.map.getBounds().getSouthWest().toJSON(),
       ne: this.map.getBounds().getNorthEast().toJSON(),
     });
@@ -167,11 +181,12 @@ export default scriptLoader('https://maps.googleapis.com/maps/api/js?key=AIzaSyC
 MapSearch.propTypes = {
   sw: LatLngPropType,
   ne: LatLngPropType,
-  mapBoundsChanged: PropTypes.func.isRequired,
+  searchParamsChanged: PropTypes.func.isRequired,
   events: PropTypes.arrayOf(EventPropType).isRequired,
   isScriptLoaded: PropTypes.bool.isRequired,
   isScriptLoadSucceed: PropTypes.bool.isRequired,
 };
+
 MapSearch.defaultProps = {
   sw: { lat: 37.70339999999999, lng: -122.52699999999999 }, // Bounds of San Francisco
   ne: { lat: 37.812, lng: -122.34820000000002 },
