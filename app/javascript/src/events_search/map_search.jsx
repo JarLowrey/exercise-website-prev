@@ -43,14 +43,15 @@ class MapSearch extends React.Component {
   setMapLocation(sw = this.props.sw, ne = this.props.ne) {
     if (this.map) {
       let shouldUpdateBounds = true; // default to true, as bounds may be set after map first loads
+      const mapBounds = this.map.getBounds();
 
       // only update map if bounds are different than current values
       // Using fitBounds with the same bounds causes the map to move
       // getBounds() may return undefined when map is first loading,
       // which would make it impossible to compare to maps current SW/NE vals
-      if (this.map.getBounds()) {
-        const currSW = this.map.getBounds().getSouthWest().toJSON();
-        const currNE = this.map.getBounds().getNorthEast().toJSON();
+      if (mapBounds) {
+        const currSW = mapBounds.getSouthWest().toJSON();
+        const currNE = mapBounds.getNorthEast().toJSON();
 
         const diffNEval = currNE.lat !== ne.lat || currNE.lng !== ne.lng;
         const diffSWval = currSW.lat !== sw.lat || currSW.lng !== sw.lng;
