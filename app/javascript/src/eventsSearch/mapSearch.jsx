@@ -7,7 +7,7 @@ import { Marker } from 'react-google-maps';
 import MarkerClusterer from 'react-google-maps/lib/components/addons/MarkerClusterer';
 import scriptLoader from 'react-async-script-loader';
 import GoogleMapsWrapper from './GoogleMapsWrapper';
-import { EventPropType, LatLngPropType } from '../CustomPropTypes';
+import { EventPropType, LatLngPropType } from '../propTypes';
 
 class MapSearch extends React.Component {
   constructor(props) {

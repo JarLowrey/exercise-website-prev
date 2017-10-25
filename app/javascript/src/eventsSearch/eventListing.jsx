@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { EventPropType } from '../CustomPropTypes';
+import { EventPropType } from '../propTypes';
 
 // eslint-disable-next-line react/prefer-stateless-function
 export default class EventListing extends React.Component {

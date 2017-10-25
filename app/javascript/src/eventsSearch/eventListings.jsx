@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import EventListing from './event_listing';
-import { EventPropType } from '../CustomPropTypes';
+import EventListing from './eventListing';
+import { EventPropType } from '../propTypes';
 
 export default class EventListingsHandler extends React.Component {
   render() {

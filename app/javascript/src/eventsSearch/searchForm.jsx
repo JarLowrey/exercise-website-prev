@@ -5,7 +5,7 @@ import Datetime from 'react-datetime';
 import moment from 'moment';
 import styles from 'react-datetime/css/react-datetime.css';
 
-import PlacesAutocomplete from './places_autocomplete';
+import PlacesAutocomplete from './placesAutocomplete';
 
 
 export default class EventSearchForm extends React.Component {

@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom';
 
 import queryString from 'query-string';
 import moment from 'moment';
-import MapSearch from './map_search';
-import EventListingsHandler from './event_listings_handler';
-import EventSearchForm from './search_form';
+import MapSearch from './mapSearch';
+import EventListingsHandler from './eventListings';
+import EventSearchForm from './searchForm';
 
 class EventSearchPack extends React.Component {
   constructor(props) {
