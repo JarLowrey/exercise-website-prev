@@ -6,7 +6,12 @@
 //
 // To reference this file, add <%= javascript_pack_tag 'application' %> to the appropriate
 // layout file, like app/views/layouts/application.html.erb
+import React from 'react';
+import ReactDOM from 'react-dom';
+import Main from '../src/main';
 
-console.log('Hello World from Webpacker')
+document.addEventListener('DOMContentLoaded', () => {
+  const div = document.createElement('div');
+  ReactDOM.render(<Main />, document.body.appendChild(div));
+});
 
-import EventSearchPack from 'src/events_search/pack'

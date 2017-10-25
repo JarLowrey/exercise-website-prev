@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 
 import queryString from 'query-string';
 import moment from 'moment';
@@ -7,7 +6,7 @@ import MapSearch from './mapSearch';
 import EventListingsHandler from './eventListings';
 import EventSearchForm from './searchForm';
 
-class EventSearchPack extends React.Component {
+export default class EventSearchPack extends React.Component {
   constructor(props) {
     super(props);
     this.updateStateAndSearch = this.updateStateAndSearch.bind(this);
@@ -68,10 +67,3 @@ class EventSearchPack extends React.Component {
     );
   }
 }
-
-document.addEventListener('DOMContentLoaded', () => {
-  ReactDOM.render(
-    <EventSearchPack />,
-    document.body.appendChild(document.createElement('div')),
-  );
-});
