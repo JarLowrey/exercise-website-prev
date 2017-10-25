@@ -1,16 +1,16 @@
+// Start Chrome debugger with `google-chrome --remote-debugging-port=9222`
+// Use IntelliSense to learn about possible attributes.
+// Hover to view descriptions of existing attributes.
+// For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+// Or https://hackernoon.com/debugging-react-like-a-champ-with-vscode-66281760037
+// Options: https://github.com/Microsoft/vscode-chrome-debug#other-optional-launch-config-fields
 {
-  //Start Chrome debugger with `google-chrome — remote-debugging-port=9222`
-  // Use IntelliSense to learn about possible attributes.
-  // Hover to view descriptions of existing attributes.
-  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
-  // Options: https://github.com/Microsoft/vscode-chrome-debug#other-optional-launch-config-fields
   "version": "0.2.0",
   "configurations": [{
+    "name": "Chrome",
     "type": "chrome",
-    "request": "attach",
-    "name": "Attach to Remote",
-    "address": "localhost",
-    "port": 9222,
-    "localRoot": "${workspaceRoot}"
+    "request": "launch",
+    "url": "http://localhost:3000",
+    "webRoot": "${workspaceRoot}"
   }]
 }
