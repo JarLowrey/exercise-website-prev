@@ -3,6 +3,7 @@ import {
   BrowserRouter as Router,
   Route,
   Link,
+  Switch,
 } from 'react-router-dom';
 
 import EventSearchPack from './eventsSearch/pack';
@@ -14,7 +15,9 @@ export default class Main extends React.Component {
   render() {
     return (
       <Router>
-        <Route path="/" component={EventSearchPack} />
+        <Switch>
+          <Route exact path="/" component={EventSearchPack} />
+        </Switch>
       </Router>
     );
   }

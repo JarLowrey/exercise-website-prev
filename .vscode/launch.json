@@ -1,4 +1,5 @@
 // Start Chrome debugger with `google-chrome --remote-debugging-port=9222`
+//Then F5 to start debugging
 // Use IntelliSense to learn about possible attributes.
 // Hover to view descriptions of existing attributes.
 // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387

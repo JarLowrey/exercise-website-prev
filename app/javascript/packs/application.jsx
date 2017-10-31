@@ -12,6 +12,7 @@ import Main from '../src/main';
 
 document.addEventListener('DOMContentLoaded', () => {
   const div = document.createElement('div');
-  ReactDOM.render(<Main />, document.body.appendChild(div));
+  document.body.appendChild(div);
+  ReactDOM.render(<Main />, div);
 });
 
